@@ -3,8 +3,8 @@
 ![](https://img.shields.io/github/license/MassonNN/masson-aiogram-template)
 ![](https://img.shields.io/github/forks/MassonNn/masson-aiogram-template)
 ![](https://img.shields.io/github/stars/MassonNn/masson-aiogram-template?style=flat-square)
+### Warning! This template is under development
 
-This is a scalable and functional template for any bots which will be made with aiogram 3.x
 
 ## Setup bot
 
