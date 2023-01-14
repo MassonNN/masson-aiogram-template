@@ -1,0 +1,25 @@
+[tool.poetry]
+name = "masson-aiogram-template"
+version = "0.1.0"
+description = "Scalable and functional aiogram template with SQLAlchemy and Github Actions integrations by MassonNn"
+authors = ["MassonNn <ilyalyapin@duck.com>"]
+license = "MIT License"
+readme = "README.md"
+packages = [{include = "masson_aiogram_template"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+aiogram = "^3.0b6"
+pytest = "^7.2.0"
+pytest-asyncio = "^0.20.3"
+sqlalchemy = {extras = ["mypy"], version = "^1.4.46"}
+greenlet = "^2.0.1"
+asyncpg = "^0.27.0"
+alembic = "^1.9.1"
+fluentogram = "^1.1.6"
+redis = "^4.4.2"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
