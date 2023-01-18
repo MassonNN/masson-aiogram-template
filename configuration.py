@@ -58,6 +58,7 @@ class Bot:
 class Translations:
     """ Translations configuration """
     locale_identify_mode = LocaleIdentificationMode.BY_DATABASE
+    default_locale = 'ru'
 
 
 @dataclass
