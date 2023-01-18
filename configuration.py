@@ -27,7 +27,7 @@ class Database:
         This function build a connection string
         """
         return URL.create(
-            drivername=f"{self.driver}+{self.database_system}",
+            drivername=f"{self.database_system}+{self.driver}",
             username=self.user,
             database=self.name,
             password=self.passwd,

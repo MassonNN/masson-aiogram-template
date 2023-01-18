@@ -6,13 +6,12 @@ from typing import NamedTuple
 from fluent_compiler.bundle import FluentBundle
 from fluentogram import TranslatorRunner, TranslatorHub, FluentTranslator
 
-from abstract import Adapter
-
+from abstract import Adapter, Factory
 
 LOCALES_PATH = Path(__file__).parent / 'locales'
 
 
-class Translator(Adapter):
+class Translator(Adapter, Factory):
     """ This class is a translator adapter and will be used in the bot """
     translator_runner: TranslatorRunner
     translator_hub: TranslatorHub
@@ -21,6 +20,7 @@ class Translator(Adapter):
 
     def __init__(self):
         self.translator_hub = TranslatorHub(
+            root_locale='ru',
             locales_map={
                 "ru": ("ru", ),
             },
@@ -42,15 +42,34 @@ class Translator(Adapter):
         ).get(key)
 
     def __call__(self, language: str, *args, **kwargs):
-        _to_ret = copy(self)
-        _to_ret.language = language
-        return _to_ret
+        """ When instance calles it's produces LocalizedTranslator """
+        return LocalizedTranslator(
+            translator=self.translator_hub.get_translator_by_locale(
+                locale=language or self.language
+            )
+        )
+
+
+class LocalizedTranslator:
+    """ This class produced by Translator """
+    translator: TranslatorRunner
+
+    def __init__(self, translator: TranslatorRunner):
+        self.translator = TranslatorRunner
+
+    def get(self, key: str) -> str:
+        """
+        Get translated text with key
+        :param key:
+        :return:
+        """
+        return self.translator.get(key)
 
 
 class LocaleScheme(NamedTuple):
     """ Locale scheme for presentate a cache locale key """
     user_id: int
-    locale: str
+    locale: str = ''
 
     def __str__(self):
         return f"{self.user_id}:{self.locale}"

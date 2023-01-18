@@ -1,4 +1,5 @@
 """ This file contains the cache adapter """
+import asyncio
 from typing import Optional, Any, TypeVar, List, overload
 
 from redis.asyncio.client import Redis
@@ -13,20 +14,22 @@ KeyLike = TypeVar('KeyLike', str, LocaleScheme)
 
 def build_redis_client() -> Redis:
     """ Build redis client """
-    return Redis(
+    client = Redis(
         host=conf.redis.host,
         db=conf.redis.db,
         port=conf.redis.port,
         password=conf.redis.passwd,
         username=conf.redis.username
     )
+    asyncio.create_task(client.ping())
+    return client
 
 
 class Cache(Adapter):
     """ Cache adapter """
 
     def __init__(self, redis: Optional[Redis] = None):
-        self.client = redis
+        self.client = redis or build_redis_client()
 
     @property
     def redis_client(self) -> Redis:
@@ -68,4 +71,4 @@ class Cache(Adapter):
         :param keys:
         :return:
         """
-        return await self.client.exists(list(map(str, keys)))  # noqa
+        return await self.client.exists(*list(map(str, keys)))  # noqa

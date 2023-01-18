@@ -1,11 +1,12 @@
 """ This file represent startup bot logic"""
 import asyncio
+import logging
 
 from aiogram import Bot, Dispatcher
 from aiogram.fsm.storage.redis import RedisStorage
 
 from bot.data_structure import TransferData
-from bot.logic import setup_dispatcher
+from bot.dispatcher import setup_dispatcher
 from cache import Cache
 from configuration import conf
 from db.database import Database
@@ -36,4 +37,7 @@ async def start_bot():
 
 
 if __name__ == '__main__':
+    logging.basicConfig(
+        level=logging.DEBUG if conf.debug else logging.INFO
+    )
     asyncio.run(start_bot())
