@@ -4,7 +4,7 @@ from pathlib import Path
 from fluent_compiler.bundle import FluentBundle
 from fluentogram import TranslatorRunner, TranslatorHub, FluentTranslator
 
-from abc import Adapter
+from abstract import Adapter
 
 
 LOCALES_PATH = Path(__file__).parent / 'locales'
