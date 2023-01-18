@@ -3,6 +3,7 @@
 ![](https://img.shields.io/github/license/MassonNN/masson-aiogram-template)
 ![](https://img.shields.io/github/forks/MassonNn/masson-aiogram-template)
 ![](https://img.shields.io/github/stars/MassonNn/masson-aiogram-template?style=flat-square)
+[![telegram](https://img.shields.io/badge/Telegram-Join-blue)](https://t.me/massonnn_yt)
 ### Warning! This template is under development
 
 
