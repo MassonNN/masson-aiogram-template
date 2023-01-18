@@ -1,0 +1,1 @@
+from .cache_adapter import Cache
