@@ -25,7 +25,7 @@ class Repository(Factory):
         self.type_model = type_model
         self.pool = pool
 
-    async def get(self, ident: int | str) -> Type[Base]:
+    async def get(self, ident: int | str) -> Base:
         """
         Get an ONE model from the database with PK
         :param ident: Key which need to find entry in database
@@ -34,7 +34,7 @@ class Repository(Factory):
         async with self.pool() as session:
             return await session.get(entity=self.model, ident=ident)
 
-    async def get_by_where(self, whereclause) -> Type[Base] | None:
+    async def get_by_where(self, whereclause) -> Base | None:
         """
         Get an ONE model from the database with whereclause
         :param whereclause: Clause by which entry will be found
@@ -44,7 +44,7 @@ class Repository(Factory):
         async with self.pool() as session:
             return (await session.execute(statement)).one_or_none()
 
-    async def get_many(self, whereclause, limit: int = 100, order_by=None) -> List[Type[Base]]:
+    async def get_many(self, whereclause, limit: int = 100, order_by=None) -> List[Base]:
         """
         Get many models from the database with whereclause
         :param whereclause: Where clause for finding models
