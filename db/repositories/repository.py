@@ -1,14 +1,16 @@
 """ Repository file """
 import abc
+from copy import copy
 from typing import Type, List
 
 from sqlalchemy import delete, select
 from sqlalchemy.orm import sessionmaker
 
+from abstract import Factory
 from ..models import Base
 
 
-class Repository:
+class Repository(Factory):
     """ Repository abstract class """
 
     model: Base
@@ -95,3 +97,8 @@ class Repository:
         :return: Nothing
         """
         ...
+
+    def __call__(self, model: Base, *args, **kwargs):
+        _con_repository = copy(self)
+        _con_repository.model = model
+        return _con_repository
