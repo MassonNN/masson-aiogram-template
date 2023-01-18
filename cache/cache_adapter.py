@@ -1,5 +1,5 @@
 """ This file contains the cache adapter """
-from typing import Optional, Any, Hashable
+from typing import Optional, Any, Hashable, TypeVar, List
 
 from redis.asyncio.client import Redis
 
@@ -19,8 +19,12 @@ def build_redis_client() -> Redis:
     )
 
 
+KeyLike = TypeVar('KeyLike', str, LocaleScheme)
+
+
 class Cache(Adapter):
     """ Cache adapter """
+
     def __init__(self, redis: Optional[Redis] = None):
         self.client = redis
 
@@ -32,7 +36,7 @@ class Cache(Adapter):
         """
         return self.client
 
-    async def get(self, key: str | LocaleScheme) -> Any:
+    async def get(self, key: KeyLike) -> Any:
         """
         Get a value from cache database
         :param key:
@@ -40,11 +44,14 @@ class Cache(Adapter):
         """
         return await self.client.get(str(key))
 
-    async def set(self, key: Hashable, value: Any):
+    async def set(self, key: KeyLike, value: Any):
         """
         Set a value to cache database
         :param key: Key to set
         :param value: Value in a serializable type
         :return: Nothing
         """
-        await self.client.set(name=key, value=value)  # noqa
+        await self.client.set(name=str(key), value=value)  # noqa
+
+    async def exists(self, *keys: List[KeyLike]):
+        return await self.client.exists(list(map(str, keys)))  # noqa
