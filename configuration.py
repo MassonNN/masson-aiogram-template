@@ -1,8 +1,13 @@
 """ This file represents configurations from files and environment"""
 from dataclasses import dataclass
 from os import getenv
+from pathlib import Path
+
+from redis.asyncio.client import Redis as RedisClient
 
 from sqlalchemy.engine import URL
+
+from language import LocaleIdentificationMode
 
 
 @dataclass
@@ -34,9 +39,9 @@ class Database:
 @dataclass
 class Redis:
     """ Redis connection variables """
-    db: str = getenv("REDIS_DATABASE", 1)
+    db: str = int(getenv("REDIS_DATABASE", 1))
     host: str = getenv("REDIS_HOST", "redis")
-    port: int = getenv("REDIS_PORT", 6379)
+    port: int = int(getenv("REDIS_PORT", 6379))
     passwd: int = getenv("REDIS_PASSWORD")
     username: int = getenv("REDIS_USERNAME")
     state_ttl: int = getenv("REDIS_TTL_STATE", None)
@@ -50,11 +55,19 @@ class Bot:
 
 
 @dataclass
+class Translations:
+    """ Translations configuration """
+    locale_identify_mode = LocaleIdentificationMode.BY_DATABASE
+
+
+@dataclass
 class Configuration:
     """ All in one configuration's class """
+    debug = bool(getenv('DEBUG'))
     db = Database()
     redis = Redis()
     bot = Bot()
+    translate = Translations()
 
 
 conf = Configuration()
