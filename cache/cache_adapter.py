@@ -1,5 +1,5 @@
 """ This file contains the cache adapter """
-from typing import Optional, Any, Hashable, TypeVar, List
+from typing import Optional, Any, Hashable, TypeVar, List, overload
 
 from redis.asyncio.client import Redis
 
@@ -52,6 +52,10 @@ class Cache(Adapter):
         :return: Nothing
         """
         await self.client.set(name=str(key), value=value)  # noqa
+
+    @overload
+    async def exists(self, key: KeyLike):
+        return await self.client.exists([str(key),])  # noqa
 
     async def exists(self, *keys: List[KeyLike]):
         return await self.client.exists(list(map(str, keys)))  # noqa
