@@ -1,11 +1,14 @@
 """ This file contains the cache adapter """
-from typing import Optional, Any, Hashable, TypeVar, List, overload
+from typing import Optional, Any, TypeVar, List, overload
 
 from redis.asyncio.client import Redis
 
 from abstract import Adapter
 from configuration import conf
 from language import LocaleScheme
+
+
+KeyLike = TypeVar('KeyLike', str, LocaleScheme)
 
 
 def build_redis_client() -> Redis:
@@ -17,9 +20,6 @@ def build_redis_client() -> Redis:
         password=conf.redis.passwd,
         username=conf.redis.username
     )
-
-
-KeyLike = TypeVar('KeyLike', str, LocaleScheme)
 
 
 class Cache(Adapter):
@@ -55,7 +55,17 @@ class Cache(Adapter):
 
     @overload
     async def exists(self, key: KeyLike):
+        """
+        Check whether key has already defined or not
+        :param key:
+        :return: (bool) Result
+        """
         return await self.client.exists([str(key),])  # noqa
 
     async def exists(self, *keys: List[KeyLike]):
+        """
+        Overload of method to check many keys
+        :param keys:
+        :return:
+        """
         return await self.client.exists(list(map(str, keys)))  # noqa
