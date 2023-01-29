@@ -8,7 +8,7 @@ from ..models import User as _User, Base
 from ..role import Role
 
 
-class User(Repository):
+class User(Repository[_User]):
     """
     User repository for CRUD and other SQL queries
     """

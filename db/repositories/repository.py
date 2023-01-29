@@ -1,7 +1,7 @@
 """ Repository file """
 import abc
 from copy import copy
-from typing import Type, List
+from typing import Type, List, Generic, TypeVar
 
 from sqlalchemy import delete, select
 from sqlalchemy.orm import sessionmaker
@@ -10,7 +10,10 @@ from abstract import Factory
 from ..models import Base
 
 
-class Repository(Factory):
+AbstractModel = TypeVar('AbstractModel')
+
+
+class Repository(Factory, Generic[AbstractModel]):
     """ Repository abstract class """
 
     model: Base
@@ -25,7 +28,7 @@ class Repository(Factory):
         self.type_model = type_model
         self.pool = pool
 
-    async def get(self, ident: int | str) -> Base:
+    async def get(self, ident: int | str) -> AbstractModel:
         """
         Get an ONE model from the database with PK
         :param ident: Key which need to find entry in database
@@ -34,7 +37,7 @@ class Repository(Factory):
         async with self.pool() as session:
             return await session.get(entity=self.model, ident=ident)
 
-    async def get_by_where(self, whereclause) -> Base | None:
+    async def get_by_where(self, whereclause) -> AbstractModel | None:
         """
         Get an ONE model from the database with whereclause
         :param whereclause: Clause by which entry will be found
@@ -44,7 +47,7 @@ class Repository(Factory):
         async with self.pool() as session:
             return (await session.execute(statement)).one_or_none()
 
-    async def get_many(self, whereclause, limit: int = 100, order_by=None) -> List[Base]:
+    async def get_many(self, whereclause, limit: int = 100, order_by=None) -> List[AbstractModel]:
         """
         Get many models from the database with whereclause
         :param whereclause: Where clause for finding models

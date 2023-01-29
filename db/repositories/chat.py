@@ -6,7 +6,7 @@ from .repository import Repository
 from ..models import Chat as _Chat, User as _User
 
 
-class Chat(Repository):
+class Chat(Repository[_Chat]):
     """
     Chat repository for CRUD and other SQL queries
     """
