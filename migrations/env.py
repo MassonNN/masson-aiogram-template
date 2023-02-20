@@ -8,6 +8,10 @@ from sqlalchemy.ext.asyncio import AsyncEngine
 
 from alembic import context
 
+from configuration import conf
+from db import Base
+
+
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
 config = context.config
@@ -18,11 +22,9 @@ if config.config_file_name is not None:
     fileConfig(config.config_file_name)
 
 
-from db import Base
 target_metadata = Base.metadata
 
 
-from configuration import conf
 config.set_main_option('sqlalchemy.url', conf.db.build_connection_str())
 
 
