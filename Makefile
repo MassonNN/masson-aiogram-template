@@ -43,25 +43,16 @@ requirements:
 # Alembic utils
 .PHONY: generate
 generate:
-	if [ NAME ]; then \
-		alembic revision --m="$(NAME)" --autogenerate \
-	else; then \
-		alembic revision --autogenerate \
-	fi
+	alembic revision --m="$(NAME)" --autogenerate
 
 .PHONY: migrate
 migrate:
 	alembic upgrade head
 
-
 # Docker utils
 .PHONY: project-start
 project-start:
-	if [ TEST ]; then \
-		docker-compose up --force-recreate ${MODE}  \
-	else; then \
-	  	docker-compose up ${MODE} \
-  	fi
+	docker-compose up --force-recreate ${MODE}
 
 .PHONY: project-stop
 project-stop:
