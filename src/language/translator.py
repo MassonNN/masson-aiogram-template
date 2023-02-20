@@ -6,12 +6,11 @@ from typing import NamedTuple
 from fluent_compiler.bundle import FluentBundle
 from fluentogram import TranslatorRunner, TranslatorHub, FluentTranslator
 
-from abstract import Adapter, Factory
 
 LOCALES_PATH = Path(__file__).parent / 'locales'
 
 
-class Translator(Adapter, Factory):
+class Translator:
     """ This class is a translator adapter and will be used in the bot """
     translator_runner: TranslatorRunner
     translator_hub: TranslatorHub

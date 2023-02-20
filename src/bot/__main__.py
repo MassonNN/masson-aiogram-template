@@ -5,12 +5,12 @@ import logging
 from aiogram import Bot, Dispatcher
 from aiogram.fsm.storage.redis import RedisStorage
 
-from bot.data_structure import TransferData
-from bot.dispatcher import setup_dispatcher
-from cache import Cache
+from src.bot.data_structure import TransferData
+from src.bot.dispatcher import setup_dispatcher
+from src.cache import Cache
 from configuration import conf
-from db.database import Database
-from language.translator import Translator
+from src.db.database import Database
+from src.language.translator import Translator
 
 
 async def start_bot():

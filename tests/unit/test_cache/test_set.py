@@ -1,6 +1,6 @@
 import pytest
 
-from cache import Cache
+from src.cache import Cache
 from tests.utils.mocked_redis import MockedRedis
 
 

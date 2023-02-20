@@ -8,11 +8,11 @@ from typing import TypedDict, Callable
 from aiogram import Bot
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from bot.role import Role
-from cache import Cache
-from db.database import Database
-from language import Translator
-from language.translator import LocalizedTranslator
+from src.bot.role import Role
+from src.cache import Cache
+from src.db.database import Database
+from src.language import Translator
+from src.language.translator import LocalizedTranslator
 
 
 class TransferData(TypedDict):
@@ -25,4 +25,4 @@ class TransferData(TypedDict):
 
 class TransferUserData(TypedDict):
     role: Role
-
+    locale: str

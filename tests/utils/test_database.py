@@ -1,7 +1,7 @@
 from sqlalchemy import MetaData
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from db import Database, Base
+from src.db import Database, Base
 
 
 class TestDatabase(Database):

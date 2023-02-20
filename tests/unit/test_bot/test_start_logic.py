@@ -3,8 +3,8 @@ import pytest
 from unittest.mock import AsyncMock
 from aiogram.types import Message
 
-from bot.logic.start import start
-from language.translator import LocalizedTranslator
+from src.bot.logic.start import start
+from src.language.translator import LocalizedTranslator
 from tests.utils.updates import TEST_USER
 
 TEST_TEXT = 'test_text'

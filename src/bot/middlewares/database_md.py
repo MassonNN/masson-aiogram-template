@@ -4,8 +4,8 @@ from aiogram import BaseMiddleware
 from aiogram.types import Message, CallbackQuery
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from bot.data_structure import TransferData
-from db.database import Database
+from src.bot.data_structure import TransferData
+from src.db.database import Database
 
 
 class DatabaseMiddleware(BaseMiddleware):

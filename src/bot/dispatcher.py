@@ -1,7 +1,7 @@
 """ This file contains build dispatcher logic """
 from aiogram import Dispatcher
 
-from bot.middlewares.translator_md import TranslatorMiddleware
+from src.bot.middlewares.translator_md import TranslatorMiddleware
 from logic import routers
 
 

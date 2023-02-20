@@ -4,7 +4,7 @@
 from aiogram import types, Router
 from aiogram.filters import CommandStart
 
-from language.translator import LocalizedTranslator
+from src.language.translator import LocalizedTranslator
 
 start_router = Router(name='start')
 

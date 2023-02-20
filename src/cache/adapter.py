@@ -5,7 +5,7 @@ from typing import Optional, Any, TypeVar, List, overload
 from redis.asyncio.client import Redis
 
 from configuration import conf
-from language import LocaleScheme
+from src.language import LocaleScheme
 
 KeyLike = TypeVar('KeyLike', str, LocaleScheme)
 

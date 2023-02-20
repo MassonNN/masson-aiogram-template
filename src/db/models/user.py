@@ -4,7 +4,7 @@ import sqlalchemy.orm as orm
 from sqlalchemy.orm import mapped_column
 
 from .base import Base
-from bot.role import Role
+from src.bot.role import Role
 
 
 class User(Base):

@@ -5,7 +5,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from .abstract import Repository
 from ..models import User, Base
-from bot.role import Role
+from src.bot.role import Role
 
 
 class UserRepo(Repository[User]):

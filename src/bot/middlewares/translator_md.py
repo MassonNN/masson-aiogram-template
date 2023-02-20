@@ -3,10 +3,10 @@ from typing import Callable, Dict, Any, Awaitable, Union
 from aiogram import BaseMiddleware
 from aiogram.types import Message, CallbackQuery
 
-from bot.data_structure import TransferData
-from cache import Cache
+from src.bot.data_structure import TransferData
+from src.cache import Cache
 from configuration import conf
-from language import Translator, LocaleIdentificationMode, LocaleScheme
+from src.language import Translator, LocaleIdentificationMode, LocaleScheme
 
 
 class TranslatorMiddleware(BaseMiddleware):
