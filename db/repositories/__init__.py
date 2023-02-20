@@ -1,5 +1,5 @@
-from .chat import Chat
-from .user import User
-from .repository import Repository
+from .chat import ChatRepo
+from .user import UserRepo
+from .abstract import Repository
 
-__all__ = ("Chat", "User")
+__all__ = ("ChatRepo", "UserRepo")

@@ -4,10 +4,8 @@ from typing import Optional, Any, TypeVar, List, overload
 
 from redis.asyncio.client import Redis
 
-from abstract import Adapter
 from configuration import conf
 from language import LocaleScheme
-
 
 KeyLike = TypeVar('KeyLike', str, LocaleScheme)
 
@@ -25,7 +23,7 @@ def build_redis_client() -> Redis:
     return client
 
 
-class Cache(Adapter):
+class Cache:
     """ Cache adapter """
 
     def __init__(self, redis: Optional[Redis] = None):

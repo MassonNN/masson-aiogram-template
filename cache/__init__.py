@@ -1,1 +1,1 @@
-from .cache_adapter import Cache
+from .adapter import Cache

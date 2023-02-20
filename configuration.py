@@ -1,9 +1,6 @@
 """ This file represents configurations from files and environment"""
 from dataclasses import dataclass
 from os import getenv
-from pathlib import Path
-
-from redis.asyncio.client import Redis as RedisClient
 
 from sqlalchemy.engine import URL
 
@@ -15,7 +12,7 @@ class Database:
     """ Database connection variables """
     name: str = getenv("POSTGRES_DATABASE")
     user: str = getenv("POSTGRES_USER", "docker")
-    passwd: str = getenv("POSTGRES_PASSWORD", "")
+    passwd: str = getenv("POSTGRES_PASSWORD", None)
     port: int = int(getenv("POSTGRES_PORT", 5432))
     host: str = getenv("POSTGRES_HOST", "db")
 
@@ -33,7 +30,7 @@ class Database:
             password=self.passwd,
             port=self.port,
             host=self.host
-        )
+        ).render_as_string(hide_password=False)
 
 
 @dataclass
