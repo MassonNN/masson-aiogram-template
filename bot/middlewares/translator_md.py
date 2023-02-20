@@ -29,5 +29,5 @@ class TranslatorMiddleware(BaseMiddleware):
             locale = conf.translate.default_locale
             if await cache.exists(locale_key):
                 # If any locale key were set then use it
-                locale = await cache.get()
+                locale = await cache.get(locale_key)
             data['translator'] = translator(language=locale)
