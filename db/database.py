@@ -1,13 +1,12 @@
 """ Database class with all-in-one features """
 from typing import Union
 
-from sqlalchemy.orm import sessionmaker
 from sqlalchemy.engine.url import URL
 from sqlalchemy.ext.asyncio import AsyncEngine, create_async_engine as _create_async_engine, AsyncSession
+from sqlalchemy.orm import sessionmaker
 
-from abstract.facade import Facade
 from configuration import conf
-from .repositories import Chat, User, Repository
+from .repositories import ChatRepo, UserRepo
 
 
 def create_async_engine(url: Union[URL, str]) -> AsyncEngine:
@@ -31,18 +30,20 @@ def create_session_maker(engine: AsyncEngine = None) -> sessionmaker:
     )
 
 
-class Database(Facade):
+class Database:
     """
     Database class is the highest abstraction level of database and
     can be used in the handlers or any others bot-side functions
     """
 
-    user: User
+    user: UserRepo
     """ User repository """
-    chat: Chat
+    chat: ChatRepo
     """ Chat repository """
 
-    def __init__(self, pool: sessionmaker = None, user: Repository = None, chat: Repository = None):
-        self.pool = pool or create_session_maker()
-        self.user = user or User(pool)
-        self.chat = chat or Chat(pool)
+    session: AsyncSession
+
+    def __init__(self, session: AsyncSession, user: UserRepo = None, chat: ChatRepo = None):
+        self.session = session
+        self.user = user or UserRepo(session=session)
+        self.chat = chat or ChatRepo(session=session)
