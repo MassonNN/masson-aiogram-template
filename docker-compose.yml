@@ -1,0 +1,33 @@
+version: '3.7'
+services:
+  redis:
+    image: redis:alpine
+    command:
+      - redis-server
+    env_file:
+      - test.env
+    restart: on-failure
+    ports:
+      - "6378:6378"
+  db:
+    image: postgres:14-alpine
+    env_file:
+      - test.env
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    restart: on-failure
+    ports:
+      - "5433:5433"
+  bot:
+    image: masson_aiogram_template:0.1-ALPHA
+    command: sh -c "make migrate && python -m bot"
+    env_file:
+      - test.env
+    restart: always
+    depends_on:
+      - db
+      - redis
+
+
+volumes:
+  pgdata:
