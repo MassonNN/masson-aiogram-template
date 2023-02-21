@@ -89,6 +89,8 @@ celerybeat.pid
 *.sage.py
 tests.env
 .venv
+*.env
+!.env.dist
 env/
 venv/
 ENV/
