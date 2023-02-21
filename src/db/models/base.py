@@ -1,5 +1,5 @@
 """ Base model """
-from sqlalchemy import Column, Integer, MetaData
+from sqlalchemy import Integer, MetaData
 from sqlalchemy.ext.declarative import as_declarative
 from sqlalchemy.orm import declared_attr, mapped_column
 
