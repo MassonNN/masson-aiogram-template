@@ -74,7 +74,7 @@ class LocaleScheme(NamedTuple):
     """Locale scheme for presentate a cache locale key"""
 
     user_id: int
-    locale: Locales = ""
+    locale: Locales = conf.default_locale
 
     def __str__(self):
-        return f"{self.user_id}:{self.locale}"
+        return f"{self.user_id}:{self.locale.value}"

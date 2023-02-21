@@ -71,7 +71,7 @@ class Configuration:
     redis = Redis()
     bot = Bot()
     translate = Translations()
-    default_locale = Locales(getenv('DEFAULT_LOCALE')) or Locales.RU
+    default_locale = Locales.RU
 
 
 conf = Configuration()

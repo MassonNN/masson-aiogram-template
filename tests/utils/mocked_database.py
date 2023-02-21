@@ -4,11 +4,11 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from src.db import Database, Base
 
 
-class TestDatabase(Database):
+class MockedDatabase(Database):
 
     async def teardown(self):
         """ Clear all data in the database """
         metadata: MetaData = Base.metadata
-        async with self.pool() as session:  # type: AsyncSession
-            for table in metadata.tables.values():
-                await session.execute(table.delete())
+        for table in metadata.tables.values():
+            await self.session.execute(table.delete())
+        await self.session.commit()
