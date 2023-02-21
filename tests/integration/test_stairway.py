@@ -3,7 +3,7 @@ from alembic.command import downgrade, upgrade
 from alembic.config import Config
 from alembic.script import Script, ScriptDirectory
 
-from ..utils.alembic import alembic_config_from_url
+from tests.utils.alembic import alembic_config_from_url
 
 
 def get_revisions():
@@ -28,3 +28,4 @@ def test_migrations_stairway(alembic_config: Config, revision: Script):
     # We need -1 for downgrading first migration (its down_revision is None)
     downgrade(alembic_config, revision.down_revision or '-1')
     upgrade(alembic_config, revision.revision)
+    
