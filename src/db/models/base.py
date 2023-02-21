@@ -1,7 +1,7 @@
 """ Base model """
 from sqlalchemy import Integer, MetaData
 from sqlalchemy.ext.declarative import as_declarative
-from sqlalchemy.orm import declared_attr, mapped_column
+from sqlalchemy.orm import declared_attr, mapped_column, Mapped
 
 metadata = MetaData(
     naming_convention={
@@ -25,4 +25,4 @@ class Base(object):
 
     __allow_unmapped__ = False
 
-    id = mapped_column(Integer, autoincrement=True, primary_key=True)
+    id: Mapped[int] = mapped_column(Integer, autoincrement=True, primary_key=True)

@@ -1,9 +1,12 @@
 import asyncio
+import socket
 from logging.config import fileConfig
 
+import sqlalchemy
 from sqlalchemy import engine_from_config
 from sqlalchemy import pool
 from sqlalchemy.engine import Connection
+from sqlalchemy.exc import ProgrammingError
 from sqlalchemy.ext.asyncio import AsyncEngine
 
 from alembic import context
@@ -59,6 +62,23 @@ def do_run_migrations(connection: Connection) -> None:
         context.run_migrations()
 
 
+class FailedConnectToDatabase(Exception):
+    def __init__(self, url_info: str, other=""):
+        self.url_info = url_info
+        self.other = other
+
+    def __str__(self):
+        return f"Tried connect to {self.url_info} ({self.other})"
+
+
+class MigrationError(Exception):
+    def __init__(self, info: str):
+        self.info = info
+
+    def __str__(self):
+        return self.info
+
+
 async def run_migrations_online() -> None:
     """Run migrations in 'online' mode.
 
@@ -74,11 +94,15 @@ async def run_migrations_online() -> None:
             future=True,
         )
     )
-
-    async with connectable.connect() as connection:
-        await connection.run_sync(do_run_migrations)
-
-    await connectable.dispose()
+    try:
+        async with connectable.connect() as connection:
+                await connection.run_sync(do_run_migrations)
+    except ProgrammingError as pe:
+        raise MigrationError(str(pe))
+    except (Exception) as e:
+        raise FailedConnectToDatabase(url_info=connectable.url, other=e)
+    finally:
+        await connectable.dispose()
 
 
 if context.is_offline_mode():
