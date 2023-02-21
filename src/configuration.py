@@ -4,17 +4,18 @@ from os import getenv
 
 from sqlalchemy.engine import URL
 
-from src.language import LocaleIdentificationMode
+from src.language.enums import LocaleIdentificationMode, Locales
 
 
 @dataclass
 class Database:
-    """ Database connection variables """
+    """Database connection variables"""
+
     name: str = getenv("POSTGRES_DATABASE")
     user: str = getenv("POSTGRES_USER", "docker")
     passwd: str = getenv("POSTGRES_PASSWORD", None)
     port: int = int(getenv("POSTGRES_PORT", 5432))
-    host: str = getenv("POSTGRES_HOST", "src/db")
+    host: str = getenv("POSTGRES_HOST", "db")
 
     driver: str = "asyncpg"
     database_system: str = "postgresql"
@@ -29,13 +30,14 @@ class Database:
             database=self.name,
             password=self.passwd,
             port=self.port,
-            host=self.host
+            host=self.host,
         ).render_as_string(hide_password=False)
 
 
 @dataclass
 class Redis:
-    """ Redis connection variables """
+    """Redis connection variables"""
+
     db: str = int(getenv("REDIS_DATABASE", 1))
     host: str = getenv("REDIS_HOST", "redis")
     port: int = int(getenv("REDIS_PORT", 6379))
@@ -47,25 +49,29 @@ class Redis:
 
 @dataclass
 class Bot:
-    """ Bot configuration """
+    """Bot configuration"""
+
     token: str = getenv("BOT_TOKEN")
 
 
 @dataclass
 class Translations:
-    """ Translations configuration """
+    """Translations configuration"""
+
     locale_identify_mode = LocaleIdentificationMode.BY_DATABASE
-    default_locale = 'ru'
+    default_locale = "ru"
 
 
 @dataclass
 class Configuration:
-    """ All in one configuration's class """
-    debug = bool(getenv('DEBUG'))
+    """All in one configuration's class"""
+
+    debug = bool(getenv("DEBUG"))
     db = Database()
     redis = Redis()
     bot = Bot()
     translate = Translations()
+    default_locale = Locales(getenv('DEFAULT_LOCALE')) or Locales.RU
 
 
 conf = Configuration()

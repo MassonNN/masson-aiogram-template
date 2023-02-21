@@ -1,2 +1,2 @@
-from .translator import Translator, LocaleScheme
-from .translator_mode import LocaleIdentificationMode
+from .translator import LocaleScheme, Translator
+from .enums import LocaleIdentificationMode

@@ -8,7 +8,7 @@ from typing import List, Optional, Union
 
 from alembic.config import Config
 
-from configuration import conf
+from src.configuration import conf
 
 PROJECT_PATH = Path(__file__).parent.parent.parent.resolve()
 DEFAULT_PG_URL = conf.db.build_connection_str()

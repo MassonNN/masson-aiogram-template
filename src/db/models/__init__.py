@@ -1,9 +1,8 @@
 """
     Init file for models namespace
 """
+from .base import Base
 from .chat import Chat
 from .user import User
-from .base import Base
-__all__ = (
-    "Base"
-)
+
+__all__ = "Base"

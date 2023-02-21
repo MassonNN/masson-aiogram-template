@@ -1,30 +1,30 @@
 """ This file contains the cache adapter """
 import asyncio
-from typing import Optional, Any, TypeVar, List, overload
+from typing import Any, List, Optional, TypeVar, overload
 
 from redis.asyncio.client import Redis
 
-from configuration import conf
+from src.configuration import conf
 from src.language import LocaleScheme
 
-KeyLike = TypeVar('KeyLike', str, LocaleScheme)
+KeyLike = TypeVar("KeyLike", str, LocaleScheme)
 
 
 def build_redis_client() -> Redis:
-    """ Build redis client """
+    """Build redis client"""
     client = Redis(
         host=conf.redis.host,
         db=conf.redis.db,
         port=conf.redis.port,
         password=conf.redis.passwd,
-        username=conf.redis.username
+        username=conf.redis.username,
     )
     asyncio.create_task(client.ping())
     return client
 
 
 class Cache:
-    """ Cache adapter """
+    """Cache adapter"""
 
     def __init__(self, redis: Optional[Redis] = None):
         self.client = redis or build_redis_client()
@@ -61,7 +61,11 @@ class Cache:
         :param key:
         :return: (bool) Result
         """
-        return await self.client.exists([str(key),])  # noqa
+        return await self.client.exists(
+            [
+                str(key),
+            ]
+        )  # noqa
 
     async def exists(self, *keys: List[KeyLike]):
         """

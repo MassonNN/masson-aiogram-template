@@ -1,11 +1,12 @@
 """ User repository file """
-from typing import Type, Optional
+from typing import Optional, Type
 
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from .abstract import Repository
-from ..models import User, Base
 from src.bot.role import Role
+
+from ..models import Base, User
+from .abstract import Repository
 
 
 class UserRepo(Repository[User]):
@@ -20,15 +21,15 @@ class UserRepo(Repository[User]):
         super().__init__(type_model=User, session=session)
 
     async def new(
-            self,
-            user_id: int,
-            user_name: Optional[str] = None,
-            first_name: Optional[str] = None,
-            second_name: Optional[str] = None,
-            language_code: Optional[str] = None,
-            is_premium: Optional[bool] = False,
-            role: Optional[Role] = Role.USER,
-            user_chat: Type[Base] = None
+        self,
+        user_id: int,
+        user_name: Optional[str] = None,
+        first_name: Optional[str] = None,
+        second_name: Optional[str] = None,
+        language_code: Optional[str] = None,
+        is_premium: Optional[bool] = False,
+        role: Optional[Role] = Role.USER,
+        user_chat: Type[Base] = None,
     ) -> None:
         """
         Insert a new user into the database
@@ -41,14 +42,16 @@ class UserRepo(Repository[User]):
         :param role: User's role
         :param user_chat: Telegram chat with user
         """
-        new_user = await self.session.merge(User(
-            user_id=user_id,
-            user_name=user_name,
-            first_name=first_name,
-            second_name=second_name,
-            language_code=language_code,
-            is_premium=is_premium,
-            role=role,
-            user_chat=user_chat
-        ))
+        new_user = await self.session.merge(
+            User(
+                user_id=user_id,
+                user_name=user_name,
+                first_name=first_name,
+                second_name=second_name,
+                language_code=language_code,
+                is_premium=is_premium,
+                role=role,
+                user_chat=user_chat,
+            )
+        )
         return new_user

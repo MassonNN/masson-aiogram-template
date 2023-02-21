@@ -3,7 +3,7 @@ import asyncio
 import pytest
 import pytest_asyncio
 
-from configuration import conf
+from src.configuration import conf
 from tests.utils.test_database import TestDatabase
 from utils.alembic import alembic_config_from_url
 

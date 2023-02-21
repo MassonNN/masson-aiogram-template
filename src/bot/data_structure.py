@@ -3,7 +3,7 @@ This file contains TypedDict structure to store data which will
 transfer throw Dispatcher->Middlewares->Handlers
 """
 
-from typing import TypedDict, Callable
+from typing import Callable, TypedDict
 
 from aiogram import Bot
 from sqlalchemy.ext.asyncio import AsyncSession

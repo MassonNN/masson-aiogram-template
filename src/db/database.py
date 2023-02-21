@@ -2,10 +2,12 @@
 from typing import Union
 
 from sqlalchemy.engine.url import URL
-from sqlalchemy.ext.asyncio import AsyncEngine, create_async_engine as _create_async_engine, AsyncSession
+from sqlalchemy.ext.asyncio import AsyncEngine, AsyncSession
+from sqlalchemy.ext.asyncio import create_async_engine as _create_async_engine
 from sqlalchemy.orm import sessionmaker
 
-from configuration import conf
+from src.configuration import conf
+
 from .repositories import ChatRepo, UserRepo
 
 
@@ -14,7 +16,9 @@ def create_async_engine(url: Union[URL, str]) -> AsyncEngine:
     :param url:
     :return:
     """
-    return _create_async_engine(url=url, echo=conf.debug, encoding='utf-8', pool_pre_ping=True)
+    return _create_async_engine(
+        url=url, echo=conf.debug, encoding="utf-8", pool_pre_ping=True
+    )
 
 
 def create_session_maker(engine: AsyncEngine = None) -> sessionmaker:
@@ -23,10 +27,9 @@ def create_session_maker(engine: AsyncEngine = None) -> sessionmaker:
     :return:
     """
     return sessionmaker(
-        engine or create_async_engine(
-            conf.db.build_connection_str()
-        ),
-        class_=AsyncSession, expire_on_commit=False
+        engine or create_async_engine(conf.db.build_connection_str()),
+        class_=AsyncSession,
+        expire_on_commit=False,
     )
 
 
@@ -43,7 +46,9 @@ class Database:
 
     session: AsyncSession
 
-    def __init__(self, session: AsyncSession, user: UserRepo = None, chat: ChatRepo = None):
+    def __init__(
+        self, session: AsyncSession, user: UserRepo = None, chat: ChatRepo = None
+    ):
         self.session = session
         self.user = user or UserRepo(session=session)
         self.chat = chat or ChatRepo(session=session)

@@ -3,8 +3,9 @@ import sqlalchemy as sa
 import sqlalchemy.orm as orm
 from sqlalchemy.orm import mapped_column
 
-from .base import Base
 from src.bot.role import Role
+
+from .base import Base
 
 
 class User(Base):
@@ -26,8 +27,6 @@ class User(Base):
     """ Telegram user premium status """
     role = mapped_column(sa.Enum(Role), default=Role.USER)
     """ User's role """
-    user_chat_fk = mapped_column(sa.ForeignKey('chat.id'), unique=False, nullable=False)
-    user_chat = orm.relationship(
-        'Chat', uselist=False, lazy='joined'
-    )
+    user_chat_fk = mapped_column(sa.ForeignKey("chat.id"), unique=False, nullable=False)
+    user_chat = orm.relationship("Chat", uselist=False, lazy="joined")
     """ Telegram chat with user """

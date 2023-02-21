@@ -1,17 +1,17 @@
 """ Repository file """
 import abc
-from typing import Type, List, Generic, TypeVar
+from typing import Generic, List, Type, TypeVar
 
 from sqlalchemy import delete, select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from ..models import Base
 
-AbstractModel = TypeVar('AbstractModel')
+AbstractModel = TypeVar("AbstractModel")
 
 
 class Repository(Generic[AbstractModel]):
-    """ Repository abstract class """
+    """Repository abstract class"""
 
     type_model: Type[Base]
     session: AsyncSession
@@ -31,7 +31,7 @@ class Repository(Generic[AbstractModel]):
         :param ident: Key which need to find entry in database
         :return:
         """
-        return await self.session.get(entity=self.model, ident=ident)
+        return await self.session.get(entity=self.type_model, ident=ident)
 
     async def get_by_where(self, whereclause) -> AbstractModel | None:
         """
@@ -42,7 +42,9 @@ class Repository(Generic[AbstractModel]):
         statement = select(self.type_model).where(whereclause)
         return (await self.session.execute(statement)).one_or_none()
 
-    async def get_many(self, whereclause, limit: int = 100, order_by=None) -> List[AbstractModel]:
+    async def get_many(
+        self, whereclause, limit: int = 100, order_by=None
+    ) -> List[AbstractModel]:
         """
         Get many models from the database with whereclause
         :param whereclause: Where clause for finding models
@@ -54,9 +56,7 @@ class Repository(Generic[AbstractModel]):
 
         :return: List of founded models
         """
-        statement = select(self.model)\
-            .where(whereclause)\
-            .limit(limit)
+        statement = select(self.type_model).where(whereclause).limit(limit)
         if order_by:
             statement = statement.order_by(order_by)
 
@@ -69,7 +69,7 @@ class Repository(Generic[AbstractModel]):
         :param whereclause: (Optional) Which statement
         :return: Nothing
         """
-        statement = delete(self.model).where(whereclause)
+        statement = delete(self.type_model).where(whereclause)
         await self.session.execute(statement)
 
     @abc.abstractmethod

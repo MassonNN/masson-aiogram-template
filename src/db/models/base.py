@@ -9,14 +9,15 @@ metadata = MetaData(
         "uq": "uq_%(table_name)s_%(column_0_name)s",
         "ck": "ck_%(table_name)s_%(constraint_name)s",
         "fk": "fk_%(table_name)s_%(column_0_name)s_%(referred_table_name)s",
-        "pk": "pk_%(table_name)s"
+        "pk": "pk_%(table_name)s",
     }
 )
 
 
 @as_declarative(metadata=metadata)
 class Base(object):
-    """ Abstract model with declarative base functionality """
+    """Abstract model with declarative base functionality"""
+
     @classmethod
     @declared_attr
     def __tablename__(cls):
@@ -25,5 +26,3 @@ class Base(object):
     __allow_unmapped__ = False
 
     id = mapped_column(Integer, autoincrement=True, primary_key=True)
-
-
