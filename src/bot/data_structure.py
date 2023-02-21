@@ -12,6 +12,7 @@ from src.bot.role import Role
 from src.cache import Cache
 from src.db.database import Database
 from src.language import Translator
+from src.language.enums import Locales
 from src.language.translator import LocalizedTranslator
 
 
@@ -25,4 +26,4 @@ class TransferData(TypedDict):
 
 class TransferUserData(TypedDict):
     role: Role
-    locale: str
+    locale: Locales
