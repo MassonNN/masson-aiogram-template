@@ -33,7 +33,7 @@ __pycache__/
 *$py.class
 *.so
 .Python
-build/
+dockerbuild/
 develop-eggs/
 dist/
 downloads/

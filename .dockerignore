@@ -88,7 +88,7 @@ __pycache__/
 
 # Distribution / packaging
 .Python
-build/
+dockerbuild/
 develop-eggs/
 dist/
 downloads/
