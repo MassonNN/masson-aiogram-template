@@ -5,24 +5,26 @@ services:
     command:
       - redis-server
     env_file:
-      - test.env
+      - .env
     restart: on-failure
     ports:
       - "6378:6378"
   db:
     image: postgres:14-alpine
     env_file:
-      - test.env
+      - .env
     volumes:
       - pgdata:/var/lib/postgresql/data
     restart: on-failure
     ports:
-      - "5433:5433"
+      - "5432:5432"
   bot:
-    image: masson_aiogram_template:0.1-ALPHA
-    command: sh -c "make migrate && python -m bot"
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: sh -c "make migrate && poetry run src.bot"
     env_file:
-      - test.env
+      - .env
     restart: always
     depends_on:
       - db
