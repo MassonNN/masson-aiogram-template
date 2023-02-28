@@ -43,10 +43,12 @@ requirements:
 # Alembic utils
 .PHONY: generate
 generate:
+	source .env
 	poetry run alembic revision --m="$(NAME)" --autogenerate
 
 .PHONY: migrate
 migrate:
+	source .env
 	poetry run alembic upgrade head
 
 # Docker utils
