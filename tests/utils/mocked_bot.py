@@ -43,7 +43,10 @@ class MockedSession(BaseSession):
         self.closed = True
 
     async def make_request(
-            self, bot: Bot, method: TelegramMethod[TelegramType], timeout: Optional[int] = UNSET
+        self,
+        bot: Bot,
+        method: TelegramMethod[TelegramType],
+        timeout: Optional[int] = UNSET,
     ) -> TelegramType:
         """
         Build request and get response
@@ -65,7 +68,7 @@ class MockedSession(BaseSession):
             return response.result  # type: ignore
 
     async def stream_content(
-            self, url: str, timeout: int, chunk_size: int
+        self, url: str, timeout: int, chunk_size: int
     ) -> AsyncGenerator[bytes, None]:  # pragma: no cover
         """
         Just mocked and shutted down method
@@ -77,6 +80,7 @@ class MockedBot(Bot):
     """
     Mocked bot for tests
     """
+
     if TYPE_CHECKING:
         session: MockedSession
 
@@ -94,14 +98,14 @@ class MockedBot(Bot):
         )
 
     def add_result_for(
-            self,
-            method: Type[TelegramMethod[TelegramType]],
-            ok: bool,
-            result: TelegramType = None,
-            description: Optional[str] = None,
-            error_code: int = 200,
-            migrate_to_chat_id: Optional[int] = None,
-            retry_after: Optional[int] = None,
+        self,
+        method: Type[TelegramMethod[TelegramType]],
+        ok: bool,
+        result: TelegramType = None,
+        description: Optional[str] = None,
+        error_code: int = 200,
+        migrate_to_chat_id: Optional[int] = None,
+        retry_after: Optional[int] = None,
     ) -> Response[TelegramType]:
         """
         The mocked add_result_for function adds a result to the session.

@@ -2,8 +2,9 @@ import asyncio
 
 import pytest
 
-from .utils.alembic import alembic_config_from_url
 from src.configuration import conf
+
+from .utils.alembic import alembic_config_from_url
 
 
 @pytest.fixture()
@@ -16,5 +17,5 @@ def alembic_config():
 
 @pytest.fixture()
 def event_loop():
-    """ Fixture for event loop """
+    """Fixture for event loop"""
     return asyncio.new_event_loop()

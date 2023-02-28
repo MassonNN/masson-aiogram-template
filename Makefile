@@ -12,15 +12,15 @@ help:
 
 .PHONY:	black
 black:
-	$(python) -m black src, tests
+	poetry run black src/ tests/
 
 .PHONY: isort
 isort:
-	$(python) -m isort src, tests
+	poetry run isort src/ tests/
 
 .PHONY: flake
 flake:
-	$(python) -m flake8 src, tests
+	poetry run flake8 src/ tests/
 
 .PHONY: lint
 lint: black isort flake

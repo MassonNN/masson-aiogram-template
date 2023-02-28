@@ -1,7 +1,7 @@
 """ Base model """
 from sqlalchemy import Integer, MetaData
 from sqlalchemy.ext.declarative import as_declarative
-from sqlalchemy.orm import declared_attr, mapped_column, Mapped
+from sqlalchemy.orm import Mapped, declared_attr, mapped_column
 
 metadata = MetaData(
     naming_convention={

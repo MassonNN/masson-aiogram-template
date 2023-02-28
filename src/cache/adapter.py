@@ -1,6 +1,6 @@
 """ This file contains the cache adapter """
 import asyncio
-from typing import Any, List, Optional, TypeVar, overload, final
+from typing import Any, List, Optional, TypeVar, final, overload
 
 from redis.asyncio.client import Redis
 

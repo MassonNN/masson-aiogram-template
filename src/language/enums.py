@@ -5,10 +5,8 @@ class LocaleIdentificationMode(enum.Enum):
     """Locale indetification modes"""
 
     BY_TELEGRAM_LOCALE = enum.auto()
-    """ With this mode translator will use Message.from_user.language_code to
-    identify language 
-
-    Warning! Do not use this mode if you doesn't confident in it 
+    """ With this mode translator will use Message.from_user.language_code to identify language 
+        Warning! Do not use this mode if you doesn't confident in it     
     """
     BY_DATABASE = enum.auto()
     """ With this mode translator will use database (redis) to get locale. 
@@ -16,7 +14,8 @@ class LocaleIdentificationMode(enum.Enum):
 
 
 class Locales(str, enum.Enum):
-    """ Locales supported by app """
-    EN = 'en'
-    RU = 'ru'
-    UK = 'uk'
+    """Locales supported by app"""
+
+    EN = "en"
+    RU = "ru"
+    UK = "uk"

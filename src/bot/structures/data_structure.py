@@ -11,8 +11,8 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from src.bot.structures.role import Role
 from src.cache import Cache
 from src.db.database import Database
-from src.language.translator import Translator, LocalizedTranslator
 from src.language.enums import Locales
+from src.language.translator import LocalizedTranslator, Translator
 
 
 class TransferData(TypedDict):

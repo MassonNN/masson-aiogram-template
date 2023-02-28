@@ -1,11 +1,11 @@
-from datetime import timedelta
 from typing import Any
 
 from redis.asyncio.client import Redis
 
 
 class MockedRedis(Redis):
-    """ Mocked Redis for unittests """
+    """Mocked Redis for unittests"""
+
     data = {}
 
     async def get(self, name: str) -> str | None:
@@ -16,4 +16,3 @@ class MockedRedis(Redis):
 
     async def exists(self, *names: str) -> int:
         return all(name in self.data for name in names)
-

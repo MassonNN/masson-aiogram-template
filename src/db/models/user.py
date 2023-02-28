@@ -1,12 +1,13 @@
 """ User model file """
 import sqlalchemy as sa
 import sqlalchemy.orm as orm
-from sqlalchemy.orm import mapped_column, Mapped
+from sqlalchemy.orm import Mapped, mapped_column
 
 from src.bot.structures.role import Role
+
+from ...language.enums import Locales
 from .base import Base
 from .chat import Chat
-from ...language.enums import Locales
 
 
 class User(Base):
@@ -22,12 +23,16 @@ class User(Base):
     """ Telegram profile first name """
     second_name: Mapped[str] = mapped_column(sa.Text, unique=False, nullable=True)
     """ Telegram profile second name """
-    language_code: Mapped[Locales] = mapped_column(sa.Enum(Locales), unique=False, nullable=True)
+    language_code: Mapped[Locales] = mapped_column(
+        sa.Enum(Locales), unique=False, nullable=True
+    )
     """ Telegram profile language code """
     is_premium: Mapped[bool] = mapped_column(sa.Boolean, unique=False, nullable=False)
     """ Telegram user premium status """
     role: Mapped[Role] = mapped_column(sa.Enum(Role), default=Role.USER)
     """ User's role """
-    user_chat_fk: Mapped[int] = mapped_column(sa.ForeignKey("chat.id"), unique=False, nullable=False)
+    user_chat_fk: Mapped[int] = mapped_column(
+        sa.ForeignKey("chat.id"), unique=False, nullable=False
+    )
     user_chat: Mapped[Chat] = orm.relationship("Chat", uselist=False, lazy="joined")
     """ Telegram chat with user """
