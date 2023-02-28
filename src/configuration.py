@@ -1,4 +1,5 @@
 """ This file represents configurations from files and environment"""
+import logging
 from dataclasses import dataclass
 from os import getenv
 
@@ -8,7 +9,7 @@ from src.language.enums import LocaleIdentificationMode, Locales
 
 
 @dataclass
-class Database:
+class DatabaseConfig:
     """Database connection variables"""
 
     name: str = getenv("POSTGRES_DATABASE")
@@ -35,7 +36,7 @@ class Database:
 
 
 @dataclass
-class Redis:
+class RedisConfig:
     """Redis connection variables"""
 
     db: str = int(getenv("REDIS_DATABASE", 1))
@@ -48,14 +49,14 @@ class Redis:
 
 
 @dataclass
-class Bot:
+class BotConfig:
     """Bot configuration"""
 
     token: str = getenv("BOT_TOKEN")
 
 
 @dataclass
-class Translations:
+class TranslationsConfig:
     """Translations configuration"""
 
     locale_identify_mode = LocaleIdentificationMode.BY_DATABASE
@@ -67,11 +68,13 @@ class Configuration:
     """All in one configuration's class"""
 
     debug = bool(getenv("DEBUG"))
-    db = Database()
-    redis = Redis()
-    bot = Bot()
-    translate = Translations()
+    logging_level = int(getenv("LOGGING_LEVEL", logging.INFO))
     default_locale = Locales.RU
+
+    db = DatabaseConfig()
+    redis = RedisConfig()
+    bot = BotConfig()
+    translate = TranslationsConfig()
 
 
 conf = Configuration()

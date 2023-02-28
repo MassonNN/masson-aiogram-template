@@ -2,7 +2,7 @@ import asyncio
 
 import pytest
 
-from utils.alembic import alembic_config_from_url
+from .utils.alembic import alembic_config_from_url
 from src.configuration import conf
 
 
@@ -11,7 +11,7 @@ def alembic_config():
     """
     Alembic configuration object, bound to temporary database.
     """
-    return alembic_config_from_url(conf.db.get_url())
+    return alembic_config_from_url(conf.db.build_connection_str())
 
 
 @pytest.fixture()

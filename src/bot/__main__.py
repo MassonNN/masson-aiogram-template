@@ -2,11 +2,10 @@
 import asyncio
 import logging
 
-from aiogram import Bot, Dispatcher
-from aiogram.fsm.storage.redis import RedisStorage
+from aiogram import Bot
 
-from src.bot.data_structure import TransferData
-from src.bot.dispatcher import setup_dispatcher
+from src.bot.structures.data_structure import TransferData
+from src.bot.dispatcher import get_dispatcher, get_redis_storage
 from src.cache import Cache
 from src.configuration import conf
 from src.db.database import Database
@@ -15,17 +14,10 @@ from src.language.translator import Translator
 
 async def start_bot():
     """This function will start bot with polling mode"""
-    cache = Cache()
-
     bot = Bot(token=conf.bot.token)
-    dp = Dispatcher(
-        storage=RedisStorage(
-            redis=cache.client,
-            state_ttl=conf.redis.state_ttl,
-            data_ttl=conf.redis.data_ttl,
-        )
-    )
-    setup_dispatcher(dp)
+    cache = Cache()
+    storage = get_redis_storage(redis=cache)
+    dp = get_dispatcher(storage=storage)
 
     await dp.start_polling(
         bot,
@@ -35,5 +27,5 @@ async def start_bot():
 
 
 if __name__ == "__main__":
-    logging.basicConfig(level=logging.DEBUG if conf.debug else logging.INFO)
+    logging.basicConfig(level=conf.logging_level)
     asyncio.run(start_bot())

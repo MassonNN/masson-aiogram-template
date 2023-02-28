@@ -3,7 +3,7 @@ from typing import Optional, Type
 
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from src.bot.role import Role
+from src.bot.structures.role import Role
 
 from ..models import Base, User
 from .abstract import Repository

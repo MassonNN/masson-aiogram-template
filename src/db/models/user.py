@@ -3,7 +3,7 @@ import sqlalchemy as sa
 import sqlalchemy.orm as orm
 from sqlalchemy.orm import mapped_column, Mapped
 
-from src.bot.role import Role
+from src.bot.structures.role import Role
 from .base import Base
 from .chat import Chat
 from ...language.enums import Locales

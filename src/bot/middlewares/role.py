@@ -3,7 +3,7 @@ from typing import Any, Awaitable, Callable, Dict, Union
 from aiogram import BaseMiddleware
 from aiogram.types import CallbackQuery, Message, TelegramObject
 
-from src.bot.data_structure import TransferData, TransferUserData
+from src.bot.structures.data_structure import TransferData, TransferUserData
 from src.db import Database
 from src.db.models import User
 

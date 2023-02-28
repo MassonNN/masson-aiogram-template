@@ -3,7 +3,7 @@ from typing import Any, Awaitable, Callable, Dict, Union
 from aiogram import BaseMiddleware
 from aiogram.types import CallbackQuery, Message
 
-from src.bot.data_structure import TransferData
+from src.bot.structures.data_structure import TransferData
 from src.cache import Cache
 from src.configuration import conf
 from src.language import LocaleIdentificationMode, LocaleScheme, Translator
