@@ -1,9 +1,9 @@
 version: '3.7'
 services:
   redis:
-    image: redis:alpine
-    command:
-      - redis-server
+    build:
+      context: build
+      dockerfile: build/RedisDockerfile
     env_file:
       - .env
     restart: on-failure
@@ -21,8 +21,7 @@ services:
   bot:
     build:
       context: .
-      dockerfile: Dockerfile
-    command: sh -c "make migrate && poetry run src.bot"
+      dockerfile: build/Dockerfile
     env_file:
       - .env
     restart: always
