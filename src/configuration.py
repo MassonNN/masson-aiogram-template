@@ -5,7 +5,7 @@ from os import getenv
 
 from sqlalchemy.engine import URL
 
-from src.language.enums import LocaleIdentificationMode, Locales
+from .language.enums import LocaleIdentificationMode, Locales
 
 
 @dataclass

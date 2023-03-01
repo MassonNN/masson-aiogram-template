@@ -17,7 +17,7 @@ def create_async_engine(url: Union[URL, str]) -> AsyncEngine:
     :return:
     """
     return _create_async_engine(
-        url=url, echo=conf.debug, encoding="utf-8", pool_pre_ping=True
+        url=url, echo=conf.debug, pool_pre_ping=True
     )
 
 
