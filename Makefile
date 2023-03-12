@@ -28,7 +28,7 @@ lint: black isort flake
 .PHONY: run
 run:
 	migrate
-	poetry run python -m bot
+	poetry run python -m src.bot
 
 # Poetry and environments utils
 REQUIREMENTS_FILE := requirements.txt
