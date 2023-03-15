@@ -59,7 +59,7 @@ class LocalizedTranslator:
     translator: TranslatorRunner
 
     def __init__(self, translator: TranslatorRunner):
-        self.translator = TranslatorRunner
+        self.translator = translator
 
     def get(self, key: str) -> str:
         """
