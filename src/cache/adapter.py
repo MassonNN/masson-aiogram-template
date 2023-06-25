@@ -26,7 +26,7 @@ def build_redis_client() -> Redis:
 class Cache:
     """Cache adapter"""
 
-    def __init__(self, redis: Optional[Redis] = None):
+    def __init__(self, redis: Optional[Redis | dict] = None):
         self.client = redis or build_redis_client()
 
     @property
@@ -47,7 +47,7 @@ class Cache:
         return await self.client.get(str(key))
 
     @final
-    async def set(self, key: KeyLike, value: Any):
+    async def set(self, key: KeyLike, value: Any = None):
         """
         Set a value to cache database
         :param key: Key to set
