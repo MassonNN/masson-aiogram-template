@@ -96,10 +96,10 @@ async def run_migrations_online() -> None:
     )
     try:
         async with connectable.connect() as connection:
-                await connection.run_sync(do_run_migrations)
+            await connection.run_sync(do_run_migrations)
     except ProgrammingError as pe:
         raise MigrationError(str(pe))
-    except (Exception) as e:
+    except Exception as e:
         raise FailedConnectToDatabase(url_info=connectable.url, other=e)
     finally:
         await connectable.dispose()

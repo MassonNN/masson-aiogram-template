@@ -15,14 +15,16 @@ from src.language.translator import Translator
 async def start_bot():
     """This function will start bot with polling mode"""
     bot = Bot(token=conf.bot.token)
-    cache = Cache()    
+    cache = Cache()
     storage = get_redis_storage(redis=cache.redis_client)
     dp = get_dispatcher(storage=storage)
 
     await dp.start_polling(
         bot,
         allowed_updates=dp.resolve_used_update_types(),
-        **TransferData(pool=create_session_maker(), translator=Translator(), cache=cache)
+        **TransferData(
+            pool=create_session_maker(), translator=Translator(), cache=cache
+        )
     )
 
 
