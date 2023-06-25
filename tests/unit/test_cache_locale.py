@@ -21,7 +21,7 @@ def cache():
             self.storage[name] = str(value)
 
         async def exists(self, keys: List[KeyLike]):
-            return bool(key in self.storage for key in keys)
+            return all(key in self.storage for key in keys)
 
         async def teardown(self):
             del self.storage
