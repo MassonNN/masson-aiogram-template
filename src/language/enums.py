@@ -9,7 +9,7 @@ class LocaleIdentificationMode(enum.Enum):
         Warning! Do not use this mode if you doesn't confident in it     
     """
     BY_DATABASE = enum.auto()
-    """ With this mode translator will use database (redis) to get locale. 
+    """ With this mode translator will use database (by default, redis) to get locale. 
     You have to set locales as soon as possible """
 
 
