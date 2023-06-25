@@ -6,8 +6,8 @@ from aiogram.types import CallbackQuery, Message
 from src.bot.structures.data_structure import TransferData
 from src.cache import Cache
 from src.configuration import conf
-from src.language.translator import LocaleScheme, Translator
 from src.language.enums import LocaleIdentificationMode
+from src.language.translator import LocaleScheme, Translator
 
 
 class TranslatorMiddleware(BaseMiddleware):
