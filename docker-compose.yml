@@ -3,7 +3,7 @@ services:
   redis:
     build:
       context: buildfiles
-      dockerfile: RedisDockerfile
+      dockerfile: buildfiles/redis.dockerfile
     env_file:
       - .env
     restart: on-failure
