@@ -5,7 +5,7 @@ description = "Scalable and functional aiogram template with SQLAlchemy and Gith
 authors = ["MassonNn <ilyalyapin@duck.com>"]
 license = "MIT License"
 readme = "README.md"
-packages = [{include = "masson-aiogram-template"}]
+packages = []
 
 [tool.poetry.dependencies]
 python = "^3.10"
