@@ -12,10 +12,10 @@ class DatabaseMiddleware(BaseMiddleware):
     """This middleware throw a Database class to handler"""
 
     async def __call__(
-        self,
-        handler: Callable[[Message, Dict[str, Any]], Awaitable[Any]],
-        event: Union[Message, CallbackQuery],
-        data: TransferData,
+            self,
+            handler: Callable[[Message, Dict[str, Any]], Awaitable[Any]],
+            event: Union[Message, CallbackQuery],
+            data: TransferData,
     ) -> Any:
         pool: Callable[[], AsyncSession] = data["pool"]
         session = pool()
