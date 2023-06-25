@@ -22,7 +22,9 @@ async def start_bot():
     await dp.start_polling(
         bot,
         allowed_updates=dp.resolve_used_update_types(),
-        **TransferData(pool=create_session_maker(), translator=Translator(), cache=cache)
+        **TransferData(
+            pool=create_session_maker(), translator=Translator(), cache=cache
+        )
     )
 
 
