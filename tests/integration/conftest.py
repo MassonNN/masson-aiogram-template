@@ -20,11 +20,10 @@ async def pool():
 
 @pytest_asyncio.fixture()
 async def db(pool: Callable[[], AsyncSession]):
-    session = pool()
-    database = MockedDatabase(session)
-    yield database
-    await database.teardown()
-    await session.close()
+    async with pool() as session:  # type: AsyncSession
+        database = MockedDatabase(session)
+        yield database
+        await database.teardown()
 
 
 @pytest.fixture()
