@@ -44,7 +44,13 @@ class Cache:
         :param key:
         :return: Value
         """
-        return await self.client.get(str(key))
+        if isinstance(key, LocaleScheme):
+            key = key.as_key()
+        get = await self.client.get(str(key))
+        if LocaleScheme.is_locale_scheme(key):
+            return LocaleScheme.from_value(key=key, value=get)
+        else:
+            return get
 
     @final
     async def set(self, key: KeyLike, value: Any = None):
@@ -54,7 +60,10 @@ class Cache:
         :param value: Value in a serializable type
         :return: Nothing
         """
-        await self.client.set(name=str(key), value=value)  # noqa
+        if isinstance(key, LocaleScheme):
+            await self.client.set(name=key.as_key(), value=key.as_value())  # noqa
+        else:
+            await self.client.set(name=str(key), value=value)  # noqa
 
     @overload
     async def exists(self, key: KeyLike):

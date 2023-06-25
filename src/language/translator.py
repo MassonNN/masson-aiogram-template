@@ -1,4 +1,5 @@
 """ This file contains a translator adapter """
+import typing
 from pathlib import Path
 from typing import NamedTuple
 
@@ -61,13 +62,13 @@ class LocalizedTranslator:
     def __init__(self, translator: TranslatorRunner):
         self.translator = translator
 
-    def get(self, key: str) -> str:
+    def get(self, key: str, *args, **kwargs) -> str:
         """
         Get translated text with key
         :param key:
         :return:
         """
-        return self.translator.get(key)
+        return str(self.translator.get(key, *args, **kwargs))
 
 
 class LocaleScheme(NamedTuple):
@@ -76,5 +77,25 @@ class LocaleScheme(NamedTuple):
     user_id: int
     locale: Locales = conf.default_locale
 
+    def as_value(self):
+        """Method to give value for store"""
+        return self.locale.value
+
+    def as_key(self):
+        """Method to give key for store"""
+        return f"locale:{self.user_id}"
+
+    def __eq__(self, other):
+        return (self.user_id == other.user_id) and (self.locale == other.locale)
+
     def __str__(self):
-        return f"{self.user_id}:{self.locale.value}"
+        return self.as_value()
+
+    @classmethod
+    def from_value(cls, key: str, value: str):
+        """Method that generating LocaleScheme from value and key"""
+        return cls(user_id=int(key.split(":")[1]), locale=Locales(value))
+
+    @classmethod
+    def is_locale_scheme(cls, key: str):
+        return len(split := key.split(":")) == 2 and split[0] == "locale"
