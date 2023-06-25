@@ -20,4 +20,4 @@ def localized_translator(translator: Translator):
 
 @pytest.mark.asyncio
 async def test_loc_translation(localized_translator: LocalizedTranslator):
-    assert localized_translator.get("welcome", username="Тест") == "Привет, Тест!"
+    assert localized_translator.get(key='welcome') == "Привет!"
