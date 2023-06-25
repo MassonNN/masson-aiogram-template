@@ -68,7 +68,7 @@ class LocalizedTranslator:
         :param key:
         :return:
         """
-        return str(self.translator.get(key, *args, **kwargs))
+        return self.translator.get(key, *args, **kwargs)
 
 
 class LocaleScheme(NamedTuple):
