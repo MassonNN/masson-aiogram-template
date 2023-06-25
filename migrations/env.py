@@ -61,7 +61,7 @@ def do_run_migrations(connection: Connection) -> None:
 
 
 class FailedConnectToDatabase(Exception):
-    def __init__(self, url_info: str, other=""):
+    def __init__(self, url_info: str, other: Exception | str = ""):
         self.url_info = url_info
         self.other = other
 
