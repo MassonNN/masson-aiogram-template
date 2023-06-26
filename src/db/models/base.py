@@ -1,4 +1,4 @@
-""" Base model """
+"""Base model."""
 from sqlalchemy import Integer, MetaData
 from sqlalchemy.ext.declarative import as_declarative
 from sqlalchemy.orm import Mapped, declared_attr, mapped_column
@@ -15,8 +15,8 @@ metadata = MetaData(
 
 
 @as_declarative(metadata=metadata)
-class Base(object):
-    """Abstract model with declarative base functionality"""
+class Base:
+    """Abstract model with declarative base functionality."""
 
     @classmethod
     @declared_attr

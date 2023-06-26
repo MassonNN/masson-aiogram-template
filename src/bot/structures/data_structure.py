@@ -1,9 +1,9 @@
-"""
-This file contains TypedDict structure to store data which will
-transfer throw Dispatcher->Middlewares->Handlers
+"""This file contains TypedDict structure to store data which will
+transfer throw Dispatcher->Middlewares->Handlers.
 """
 
-from typing import Callable, TypedDict
+from typing import TypedDict
+from collections.abc import Callable
 
 from aiogram import Bot
 from sqlalchemy.ext.asyncio import AsyncSession

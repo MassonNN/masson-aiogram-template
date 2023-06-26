@@ -1,4 +1,3 @@
-from typing import List
 
 import pytest
 from redis.asyncio.client import Redis
@@ -22,7 +21,7 @@ def cache():
         async def set(self, name: KeyLike, value: str):  #
             self.storage[name] = str(value)
 
-        async def exists(self, keys: List[KeyLike]):
+        async def exists(self, keys: list[KeyLike]):
             return all(key in self.storage for key in keys)
 
         async def teardown(self):

@@ -1,5 +1,6 @@
 from collections import deque
-from typing import TYPE_CHECKING, AsyncGenerator, Deque, Optional, Type
+from typing import TYPE_CHECKING
+from collections.abc import AsyncGenerator
 
 from aiogram import Bot
 from aiogram.client.session.base import BaseSession
@@ -9,36 +10,31 @@ from aiogram.types import UNSET, ResponseParameters, User
 
 
 class MockedSession(BaseSession):
-    """
-    Mocked session for tests
-    """
+    """Mocked session for tests."""
 
     def __init__(self):
-        super(MockedSession, self).__init__()
-        self.responses: Deque[Response[TelegramType]] = deque()
-        self.requests: Deque[Request] = deque()
+        super().__init__()
+        self.responses: deque[Response[TelegramType]] = deque()
+        self.requests: deque[Request] = deque()
         self.closed = True
 
     def add_result(self, response: Response[TelegramType]) -> Response[TelegramType]:
-        """
-        Mocked method for add result
+        """Mocked method for add result
         :param response: Response to add
-        :return: this Response
+        :return: this Response.
         """
         self.responses.append(response)
         return response
 
     def get_request(self) -> Request:
-        """
-        Mocked method for get request
-        :return: Request
+        """Mocked method for get request
+        :return: Request.
         """
         return self.requests.pop()
 
     async def close(self):
-        """
-        Mocked method for closing the session
-        :return: Nothing
+        """Mocked method for closing the session
+        :return: Nothing.
         """
         self.closed = True
 
@@ -46,14 +42,13 @@ class MockedSession(BaseSession):
         self,
         bot: Bot,
         method: TelegramMethod[TelegramType],
-        timeout: Optional[int] = UNSET,
+        timeout: int | None = UNSET,
     ) -> TelegramType:
-        """
-        Build request and get response
+        """Build request and get response
         :param bot: Bot instance which used for request
         :param method: method to make request
         :param timeout: Timeout when request is need to be aborted
-        :return: The Result of request
+        :return: The Result of request.
         """
         self.closed = False
         self.requests.append(method.build_request(bot))
@@ -70,22 +65,18 @@ class MockedSession(BaseSession):
     async def stream_content(
         self, url: str, timeout: int, chunk_size: int
     ) -> AsyncGenerator[bytes, None]:  # pragma: no cover
-        """
-        Just mocked and shutted down method
-        """
+        """Just mocked and shutted down method."""
         yield b""
 
 
 class MockedBot(Bot):
-    """
-    Mocked bot for tests
-    """
+    """Mocked bot for tests."""
 
     if TYPE_CHECKING:
         session: MockedSession
 
     def __init__(self, **kwargs):
-        super(MockedBot, self).__init__(
+        super().__init__(
             kwargs.pop("token", "42:TEST"), session=MockedSession(), **kwargs
         )
         self._me = User(
@@ -99,16 +90,15 @@ class MockedBot(Bot):
 
     def add_result_for(
         self,
-        method: Type[TelegramMethod[TelegramType]],
+        method: type[TelegramMethod[TelegramType]],
         ok: bool,
         result: TelegramType = None,
-        description: Optional[str] = None,
+        description: str | None = None,
         error_code: int = 200,
-        migrate_to_chat_id: Optional[int] = None,
-        retry_after: Optional[int] = None,
+        migrate_to_chat_id: int | None = None,
+        retry_after: int | None = None,
     ) -> Response[TelegramType]:
-        """
-        The mocked add_result_for function adds a result to the session.
+        """The mocked add_result_for function adds a result to the session.
         :param self: Access the class instance
         :param method:Type[TelegramMethod[TelegramType]]: Get the return type of the method
         :param ok:bool: Indicate whether the request was successful or not
@@ -119,9 +109,8 @@ class MockedBot(Bot):
         :param retry_after:Optional[int]=None: Specify the time to wait before a request can be repeated
         :param : Store the result of the request
         :return: A response object, which is a subclass of namedtuple
-        :doc-author: Trelent
+        :doc-author: Trelent.
         """
-
         response = Response[method.__returning__](  # type: ignore
             ok=ok,
             result=result,
@@ -136,12 +125,10 @@ class MockedBot(Bot):
         return response
 
     def get_request(self) -> Request:
-        """
-        The get_request function returns a Request object that has been created by the Session object.
+        """The get_request function returns a Request object that has been created by the Session object.
         The get_request function is called when the user wants to make a request to an endpoint.
         :param self: Access the class attributes and methods
         :return: A request object
-        :doc-author: Trelent
+        :doc-author: Trelent.
         """
-
         return self.session.get_request()

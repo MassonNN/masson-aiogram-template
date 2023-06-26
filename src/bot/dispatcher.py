@@ -1,5 +1,4 @@
-""" This file contains build dispatcher logic """
-from typing import Optional
+"""This file contains build dispatcher logic."""
 
 from aiogram import Dispatcher
 from aiogram.fsm.storage.base import BaseEventIsolation, BaseStorage
@@ -22,10 +21,10 @@ def get_redis_storage(
 
 def get_dispatcher(
     storage: BaseStorage = MemoryStorage(),
-    fsm_strategy: Optional[FSMStrategy] = FSMStrategy.CHAT,
-    event_isolation: Optional[BaseEventIsolation] = None,
+    fsm_strategy: FSMStrategy | None = FSMStrategy.CHAT,
+    event_isolation: BaseEventIsolation | None = None,
 ):
-    """This function set up dispatcher with routers, filters and middlewares"""
+    """This function set up dispatcher with routers, filters and middlewares."""
     dp = Dispatcher(
         storage=storage, fsm_strategy=fsm_strategy, events_isolation=event_isolation
     )

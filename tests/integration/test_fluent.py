@@ -5,8 +5,7 @@ from language.translator import LocalizedTranslator, Translator
 
 @pytest.fixture()
 def translator():
-    """
-    Translator for tests
+    """Translator for tests
     :return:
     """
     yield Translator()
@@ -14,7 +13,7 @@ def translator():
 
 @pytest.fixture()
 def localized_translator(translator: Translator):
-    """Localized translator"""
+    """Localized translator."""
     yield translator("ru")
 
 

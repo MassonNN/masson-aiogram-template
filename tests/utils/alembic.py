@@ -4,7 +4,6 @@ from argparse import Namespace
 from collections import defaultdict, namedtuple
 from pathlib import Path
 from types import SimpleNamespace
-from typing import List, Optional, Union
 
 from alembic.config import Config
 
@@ -15,7 +14,7 @@ DEFAULT_PG_URL = conf.db.build_connection_str()
 
 
 def make_alembic_config(
-    cmd_opts: Union[Namespace, SimpleNamespace], base_path: str = PROJECT_PATH
+    cmd_opts: Namespace | SimpleNamespace, base_path: str = PROJECT_PATH
 ) -> Config:
     # Replace path to alembic.ini file to absolute
     if not os.path.isabs(cmd_opts.config):
@@ -35,10 +34,8 @@ def make_alembic_config(
     return config
 
 
-def alembic_config_from_url(pg_url: Optional[str] = None) -> Config:
-    """
-    Provides Python object, representing alembic.ini file.
-    """
+def alembic_config_from_url(pg_url: str | None = None) -> Config:
+    """Provides Python object, representing alembic.ini file."""
     cmd_options = SimpleNamespace(
         config="alembic.ini",
         name="alembic",
@@ -59,17 +56,14 @@ MigrationValidationParamsGroup = namedtuple(
 
 
 def load_migration_as_module(file: str):
-    """
-    Allows to import alembic migration as a module.
-    """
+    """Allows to import alembic migration as a module."""
     return importlib.machinery.SourceFileLoader(
         file, os.path.join(PROJECT_PATH, "alembic", "versions", file)
     ).load_module()
 
 
-def make_validation_params_groups(*migrations) -> List[MigrationValidationParamsGroup]:
-    """
-    Creates objects that describe test for data migrations.
+def make_validation_params_groups(*migrations) -> list[MigrationValidationParamsGroup]:
+    """Creates objects that describe test for data migrations.
     See examples in tests/data_migrations/migration_*.py.
     """
     data = []

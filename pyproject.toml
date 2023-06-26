@@ -29,6 +29,56 @@ black = "^23.1.0"
 flake8 = "^6.0.0"
 ruff = "^0.0.275"
 
+[tool.ruff]
+line-length = 88
+dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
+target-version = "py310"
+select = [
+    "E", # pycodestyle
+    "F", # pyflakes
+    "UP", # pyupgrade
+    "D", # pydocstyle
+]
+fixable = [
+    "A", "C", "D", "E", "F", "G",
+    "I", "N", "Q", "S", "T", "W", "ANN",
+    "ARG", "BLE", "COM", "DJ", "DTZ", "EM",
+    "ERA", "EXE", "FBT", "ICN", "INP", "ISC",
+    "NPY", "PD", "PGH", "PIE", "PL", "PT", "PTH",
+    "PYI", "RET", "RSE", "RUF", "SIM", "SLF", "TCH",
+    "TID", "TRY", "UP", "YTT"
+]
+unfixable = ["B"]
+exclude = [
+    ".bzr",
+    ".direnv",
+    ".eggs",
+    ".git",
+    ".git-rewrite",
+    ".hg",
+    ".mypy_cache",
+    ".nox",
+    ".pants.d",
+    ".pytype",
+    ".ruff_cache",
+    ".svn",
+    ".tox",
+    ".venv",
+    "__pypackages__",
+    "_build",
+    "buck-out",
+    "build",
+    "dist",
+    "node_modules",
+    "venv",
+]
+
+[tool.ruff.pydocstyle]
+convention = "google"
+
+[tool.ruff.flake8-quotes]
+docstring-quotes = "double"
+
 
 [build-system]
 requires = ["poetry-core"]

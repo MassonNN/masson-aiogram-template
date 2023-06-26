@@ -1,5 +1,4 @@
-""" Database class with all-in-one features """
-from typing import Union
+"""Database class with all-in-one features."""
 
 from sqlalchemy.engine.url import URL
 from sqlalchemy.ext.asyncio import AsyncEngine, AsyncSession
@@ -11,17 +10,15 @@ from src.configuration import conf
 from .repositories import ChatRepo, UserRepo
 
 
-def create_async_engine(url: Union[URL, str]) -> AsyncEngine:
-    """
-    :param url:
+def create_async_engine(url: URL | str) -> AsyncEngine:
+    """:param url:
     :return:
     """
     return _create_async_engine(url=url, echo=conf.debug, pool_pre_ping=True)
 
 
 def create_session_maker(engine: AsyncEngine = None) -> sessionmaker:
-    """
-    :param engine:
+    """:param engine:
     :return:
     """
     return sessionmaker(
@@ -32,9 +29,8 @@ def create_session_maker(engine: AsyncEngine = None) -> sessionmaker:
 
 
 class Database:
-    """
-    Database class is the highest abstraction level of database and
-    can be used in the handlers or any others bot-side functions
+    """Database class is the highest abstraction level of database and
+    can be used in the handlers or any others bot-side functions.
     """
 
     user: UserRepo

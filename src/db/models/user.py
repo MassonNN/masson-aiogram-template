@@ -1,4 +1,4 @@
-""" User model file """
+"""User model file."""
 import sqlalchemy as sa
 import sqlalchemy.orm as orm
 from sqlalchemy.orm import Mapped, mapped_column
@@ -11,9 +11,7 @@ from .chat import Chat
 
 
 class User(Base):
-    """
-    User model
-    """
+    """User model."""
 
     user_id: Mapped[int] = mapped_column(sa.BigInteger, unique=True, nullable=False)
     """ Telegram user id """

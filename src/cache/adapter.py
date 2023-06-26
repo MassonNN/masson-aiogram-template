@@ -1,6 +1,6 @@
-""" This file contains the cache adapter """
+"""This file contains the cache adapter."""
 import asyncio
-from typing import Any, List, Optional, TypeVar, final, overload
+from typing import Any, TypeVar, final, overload
 
 from redis.asyncio.client import Redis
 
@@ -11,7 +11,7 @@ KeyLike = TypeVar("KeyLike", str, LocaleScheme)
 
 
 def build_redis_client() -> Redis:
-    """Build redis client"""
+    """Build redis client."""
     client = Redis(
         host=conf.redis.host,
         db=conf.redis.db,
@@ -24,25 +24,23 @@ def build_redis_client() -> Redis:
 
 
 class Cache:
-    """Cache adapter"""
+    """Cache adapter."""
 
-    def __init__(self, redis: Optional[Redis | dict] = None):
+    def __init__(self, redis: Redis | dict | None = None):
         self.client = redis or build_redis_client()
 
     @property
     def redis_client(self) -> Redis:
-        """
-        Redis client which used in the cache adapter
+        """Redis client which used in the cache adapter
         :return:
         """
         return self.client
 
     @final
     async def get(self, key: KeyLike) -> Any:
-        """
-        Get a value from cache database
+        """Get a value from cache database
         :param key:
-        :return: Value
+        :return: Value.
         """
         if isinstance(key, LocaleScheme):
             key = key.as_key()
@@ -54,11 +52,10 @@ class Cache:
 
     @final
     async def set(self, key: KeyLike, value: Any = None):
-        """
-        Set a value to cache database
+        """Set a value to cache database
         :param key: Key to set
         :param value: Value in a serializable type
-        :return: Nothing
+        :return: Nothing.
         """
         if isinstance(key, LocaleScheme):
             await self.client.set(name=key.as_key(), value=key.as_value())  # noqa
@@ -67,23 +64,21 @@ class Cache:
 
     @overload
     async def exists(self, key: KeyLike):
-        """
-        Check whether key has already defined or not
+        """Check whether key has already defined or not
         :param key:
-        :return: (bool) Result
+        :return: (bool) Result.
         """
         ...
 
     @overload
-    async def exists(self, *keys: List[KeyLike]):
-        """
-        Overload of method to check many keys
+    async def exists(self, *keys: list[KeyLike]):
+        """Overload of method to check many keys
         :param keys:
         :return:
         """
         ...
 
-    async def exists(self, keys: KeyLike | List[KeyLike]):
+    async def exists(self, keys: KeyLike | list[KeyLike]):
         if not isinstance(keys, list):
             return await self.client.exists(
                 [

@@ -1,4 +1,5 @@
-from typing import Any, Awaitable, Callable, Dict, Union
+from typing import Any
+from collections.abc import Awaitable, Callable
 
 from aiogram import BaseMiddleware
 from aiogram.types import CallbackQuery, Message
@@ -11,12 +12,12 @@ from src.language.translator import LocaleScheme, Translator
 
 
 class TranslatorMiddleware(BaseMiddleware):
-    """This middleware throw a localized translator to handler"""
+    """This middleware throw a localized translator to handler."""
 
     async def __call__(
         self,
-        handler: Callable[[Message, Dict[str, Any]], Awaitable[Any]],
-        event: Union[Message, CallbackQuery],
+        handler: Callable[[Message, dict[str, Any]], Awaitable[Any]],
+        event: Message | CallbackQuery,
         data: TransferData,
     ) -> Any:
         translator: Translator = data["translator"]

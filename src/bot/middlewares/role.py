@@ -1,4 +1,5 @@
-from typing import Any, Awaitable, Callable, Dict, Union
+from typing import Any
+from collections.abc import Awaitable, Callable
 
 from aiogram import BaseMiddleware
 from aiogram.types import CallbackQuery, Message, TelegramObject
@@ -9,15 +10,13 @@ from src.db.models import User
 
 
 class RoleMiddleware(BaseMiddleware):
-    """
-    This class is used for getting user role from database
-    """
+    """This class is used for getting user role from database."""
 
     async def __call__(
         self,
-        handler: Callable[[TelegramObject, Dict[str, Any]], Awaitable[Any]],
+        handler: Callable[[TelegramObject, dict[str, Any]], Awaitable[Any]],
         event: Message | CallbackQuery,
-        data: Union[TransferUserData, TransferData],
+        data: TransferUserData | TransferData,
     ) -> Any:
         db: Database = data["db"]
         user = await db.user.get_by_where(User.user_id == event.from_user.id)

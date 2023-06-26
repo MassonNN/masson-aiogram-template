@@ -2,7 +2,7 @@ import enum
 
 
 class LocaleIdentificationMode(enum.Enum):
-    """Locale indetification modes"""
+    """Locale indetification modes."""
 
     BY_TELEGRAM_LOCALE = enum.auto()
     """ With this mode translator will use Message.from_user.language_code 
@@ -17,7 +17,7 @@ class LocaleIdentificationMode(enum.Enum):
 
 
 class Locales(str, enum.Enum):
-    """Locales supported by app"""
+    """Locales supported by app."""
 
     EN = "en"
     RU = "ru"

@@ -4,7 +4,7 @@ from redis.asyncio.client import Redis
 
 
 class MockedRedis(Redis):
-    """Mocked Redis for unittests"""
+    """Mocked Redis for unittests."""
 
     data = {}
 
