@@ -22,8 +22,12 @@ isort:
 flake:
 	poetry run flake8 src/ tests/
 
+.PHONY: ruff
+ruff:
+	poetry run ruff check src/ tests/ --fix --respect-gitignore
+
 .PHONY: lint
-lint: black isort flake
+lint: black isort flake ruff
 
 .PHONY: run
 run:

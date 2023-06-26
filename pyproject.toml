@@ -27,6 +27,7 @@ pytest-asyncio = "^0.20.3"
 mypy = "^1.0.1"
 black = "^23.1.0"
 flake8 = "^6.0.0"
+ruff = "^0.0.275"
 
 
 [build-system]
