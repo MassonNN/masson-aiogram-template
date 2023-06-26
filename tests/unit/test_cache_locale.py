@@ -1,6 +1,7 @@
 from typing import List
 
 import pytest
+from redis.asyncio.client import Redis
 
 from cache import Cache
 from cache.adapter import KeyLike
@@ -10,14 +11,15 @@ from language.translator import LocaleScheme
 
 @pytest.fixture()
 def cache():
-    class FakeRedis:
+    class FakeRedis(Redis):
         def __init__(self):
+            super().__init__()
             self.storage = {}
 
         async def get(self, key: KeyLike):
             return self.storage.get(key)
 
-        async def set(self, name: KeyLike, value: str):
+        async def set(self, name: KeyLike, value: str):  #
             self.storage[name] = str(value)
 
         async def exists(self, keys: List[KeyLike]):

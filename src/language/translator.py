@@ -1,5 +1,4 @@
 """ This file contains a translator adapter """
-import typing
 from pathlib import Path
 from typing import NamedTuple
 

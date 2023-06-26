@@ -2,6 +2,7 @@
 import logging
 from dataclasses import dataclass
 from os import getenv
+from typing import Optional
 
 from sqlalchemy.engine import URL
 
@@ -12,9 +13,9 @@ from .language.enums import LocaleIdentificationMode, Locales
 class DatabaseConfig:
     """Database connection variables"""
 
-    name: str = getenv("POSTGRES_DATABASE")
-    user: str = getenv("POSTGRES_USER", "docker")
-    passwd: str = getenv("POSTGRES_PASSWORD", None)
+    name: Optional[str] = getenv("POSTGRES_DATABASE")
+    user: Optional[str] = getenv("POSTGRES_USER")
+    passwd: Optional[str] = getenv("POSTGRES_PASSWORD", None)
     port: int = int(getenv("POSTGRES_PORT", 5432))
     host: str = getenv("POSTGRES_HOST", "db")
 
@@ -39,13 +40,15 @@ class DatabaseConfig:
 class RedisConfig:
     """Redis connection variables"""
 
-    db: str = int(getenv("REDIS_DATABASE", 1))
+    db: int = int(getenv("REDIS_DATABASE", 1))
+    """ Redis Database ID """
     host: str = getenv("REDIS_HOST", "redis")
     port: int = int(getenv("REDIS_PORT", 6379))
-    passwd: int = getenv("REDIS_PASSWORD")
-    username: int = getenv("REDIS_USERNAME")
-    state_ttl: int = getenv("REDIS_TTL_STATE", None)
-    data_ttl: int = getenv("REDIS_TTL_DATA", None)
+    passwd: Optional[str] = getenv("REDIS_PASSWORD")
+    username: Optional[str] = getenv("REDIS_USERNAME")
+    """"""
+    state_ttl: Optional[int] = getenv("REDIS_TTL_STATE", None)
+    data_ttl: Optional[int] = getenv("REDIS_TTL_DATA", None)
 
 
 @dataclass
