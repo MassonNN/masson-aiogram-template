@@ -41,7 +41,10 @@ class Database:
     session: AsyncSession
 
     def __init__(
-        self, session: AsyncSession, user: UserRepo = None, chat: ChatRepo = None
+        self,
+        session: AsyncSession,
+        user: UserRepo = None,
+        chat: ChatRepo = None,
     ):
         self.session = session
         self.user = user or UserRepo(session=session)

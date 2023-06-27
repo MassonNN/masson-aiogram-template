@@ -32,7 +32,7 @@ def cache():
     fake_redis.teardown()
 
 
-@pytest.mark.parametrize("value", (Locales.RU, Locales.EN, Locales.UK))
+@pytest.mark.parametrize('value', (Locales.RU, Locales.EN, Locales.UK))
 @pytest.mark.asyncio
 async def test_cache_set(cache, value):
     await cache.set(key=1, value=value)
@@ -41,7 +41,7 @@ async def test_cache_set(cache, value):
 
 
 @pytest.mark.parametrize(
-    "locale,expected",
+    'locale,expected',
     (
         (Locales.RU, LocaleScheme(user_id=1, locale=Locales.RU)),
         (Locales.EN, LocaleScheme(user_id=1, locale=Locales.EN)),

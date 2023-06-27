@@ -19,6 +19,6 @@ class LocaleIdentificationMode(enum.Enum):
 class Locales(str, enum.Enum):
     """Locales supported by app."""
 
-    EN = "en"
-    RU = "ru"
-    UK = "uk"
+    EN = 'en'
+    RU = 'ru'
+    UK = 'uk'

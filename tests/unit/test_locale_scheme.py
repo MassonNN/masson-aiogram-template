@@ -7,5 +7,5 @@ def test_generate_scheme():
     lc = LocaleScheme(user_id=1, locale=Locales.RU)
     assert str(lc) == str_value
 
-    new_lc = LocaleScheme.from_value(key="locale:1", value=str_value)
+    new_lc = LocaleScheme.from_value(key='locale:1', value=str_value)
     assert new_lc == lc

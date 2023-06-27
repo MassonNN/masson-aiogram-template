@@ -14,9 +14,9 @@ def translator():
 @pytest.fixture()
 def localized_translator(translator: Translator):
     """Localized translator."""
-    yield translator("ru")
+    yield translator('ru')
 
 
 @pytest.mark.asyncio
 async def test_loc_translation(localized_translator: LocalizedTranslator):
-    assert localized_translator.get(key="welcome") == "Привет!"
+    assert localized_translator.get(key='welcome') == 'Привет!'

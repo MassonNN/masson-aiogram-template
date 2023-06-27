@@ -8,7 +8,7 @@ from fluentogram import FluentTranslator, TranslatorHub, TranslatorRunner
 from src.configuration import conf
 from src.language.enums import Locales
 
-LOCALES_PATH = Path(__file__).parent / "locales"
+LOCALES_PATH = Path(__file__).parent / 'locales'
 
 
 class Translator:
@@ -21,17 +21,17 @@ class Translator:
 
     def __init__(self):
         self.translator_hub = TranslatorHub(
-            root_locale="ru",
+            root_locale='ru',
             locales_map={
-                "ru": ("ru",),
+                'ru': ('ru',),
             },
             translators=[
                 FluentTranslator(
-                    locale="ru",
+                    locale='ru',
                     translator=FluentBundle.from_files(
-                        locale="ru-RU",
+                        locale='ru-RU',
                         filenames=[
-                            LOCALES_PATH / "ru.ftl",
+                            LOCALES_PATH / 'ru.ftl',
                         ],
                     ),
                 )
@@ -81,10 +81,12 @@ class LocaleScheme(NamedTuple):
 
     def as_key(self):
         """Method to give key for store."""
-        return f"locale:{self.user_id}"
+        return f'locale:{self.user_id}'
 
     def __eq__(self, other):
-        return (self.user_id == other.user_id) and (self.locale == other.locale)
+        return (self.user_id == other.user_id) and (
+            self.locale == other.locale
+        )
 
     def __str__(self):
         return self.as_value()
@@ -92,8 +94,8 @@ class LocaleScheme(NamedTuple):
     @classmethod
     def from_value(cls, key: str, value: str):
         """Method that generating LocaleScheme from value and key."""
-        return cls(user_id=int(key.split(":")[1]), locale=Locales(value))
+        return cls(user_id=int(key.split(':')[1]), locale=Locales(value))
 
     @classmethod
     def is_locale_scheme(cls, key: str):
-        return len(split := key.split(":")) == 2 and split[0] == "locale"
+        return len(split := key.split(':')) == 2 and split[0] == 'locale'

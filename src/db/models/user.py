@@ -13,24 +13,36 @@ from .chat import Chat
 class User(Base):
     """User model."""
 
-    user_id: Mapped[int] = mapped_column(sa.BigInteger, unique=True, nullable=False)
+    user_id: Mapped[int] = mapped_column(
+        sa.BigInteger, unique=True, nullable=False
+    )
     """ Telegram user id """
-    user_name: Mapped[str] = mapped_column(sa.Text, unique=False, nullable=True)
+    user_name: Mapped[str] = mapped_column(
+        sa.Text, unique=False, nullable=True
+    )
     """ Telegram user name """
-    first_name: Mapped[str] = mapped_column(sa.Text, unique=False, nullable=True)
+    first_name: Mapped[str] = mapped_column(
+        sa.Text, unique=False, nullable=True
+    )
     """ Telegram profile first name """
-    second_name: Mapped[str] = mapped_column(sa.Text, unique=False, nullable=True)
+    second_name: Mapped[str] = mapped_column(
+        sa.Text, unique=False, nullable=True
+    )
     """ Telegram profile second name """
     language_code: Mapped[Locales] = mapped_column(
         sa.Enum(Locales), unique=False, nullable=True
     )
     """ Telegram profile language code """
-    is_premium: Mapped[bool] = mapped_column(sa.Boolean, unique=False, nullable=False)
+    is_premium: Mapped[bool] = mapped_column(
+        sa.Boolean, unique=False, nullable=False
+    )
     """ Telegram user premium status """
     role: Mapped[Role] = mapped_column(sa.Enum(Role), default=Role.USER)
     """ User's role """
     user_chat_fk: Mapped[int] = mapped_column(
-        sa.ForeignKey("chat.id"), unique=False, nullable=False
+        sa.ForeignKey('chat.id'), unique=False, nullable=False
     )
-    user_chat: Mapped[Chat] = orm.relationship("Chat", uselist=False, lazy="joined")
+    user_chat: Mapped[Chat] = orm.relationship(
+        'Chat', uselist=False, lazy='joined'
+    )
     """ Telegram chat with user """

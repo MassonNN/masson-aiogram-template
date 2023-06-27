@@ -7,7 +7,7 @@ from redis.asyncio.client import Redis
 from src.configuration import conf
 from src.language.translator import LocaleScheme
 
-KeyLike = TypeVar("KeyLike", str, LocaleScheme)
+KeyLike = TypeVar('KeyLike', str, LocaleScheme)
 
 
 def build_redis_client() -> Redis:
@@ -65,7 +65,9 @@ class Cache:
         :return: Nothing.
         """
         if isinstance(key, LocaleScheme):
-            await self.client.set(name=key.as_key(), value=key.as_value())  # noqa
+            await self.client.set(
+                name=key.as_key(), value=key.as_value()
+            )  # noqa
         else:
             await self.client.set(name=str(key), value=value)  # noqa
 

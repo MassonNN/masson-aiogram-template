@@ -18,7 +18,9 @@ class MockedSession(BaseSession):
         self.requests: deque[Request] = deque()
         self.closed = True
 
-    def add_result(self, response: Response[TelegramType]) -> Response[TelegramType]:
+    def add_result(
+        self, response: Response[TelegramType]
+    ) -> Response[TelegramType]:
         """Mocked method for add result
         :param response: Response to add
         :return: this Response.
@@ -58,7 +60,9 @@ class MockedSession(BaseSession):
             return method
         else:
             self.check_response(
-                method=method, status_code=response.error_code, content=response.json()
+                method=method,
+                status_code=response.error_code,
+                content=response.json(),
             )
             return response.result  # type: ignore
 
@@ -66,7 +70,7 @@ class MockedSession(BaseSession):
         self, url: str, timeout: int, chunk_size: int
     ) -> AsyncGenerator[bytes, None]:  # pragma: no cover
         """Just mocked and shutted down method."""
-        yield b""
+        yield b''
 
 
 class MockedBot(Bot):
@@ -77,15 +81,15 @@ class MockedBot(Bot):
 
     def __init__(self, **kwargs):
         super().__init__(
-            kwargs.pop("token", "42:TEST"), session=MockedSession(), **kwargs
+            kwargs.pop('token', '42:TEST'), session=MockedSession(), **kwargs
         )
         self._me = User(
             id=self.id,
             is_bot=True,
-            first_name="FirstName",
-            last_name="LastName",
-            username="tbot",
-            language_code="uk-UA",
+            first_name='FirstName',
+            last_name='LastName',
+            username='tbot',
+            language_code='uk-UA',
         )
 
     def add_result_for(

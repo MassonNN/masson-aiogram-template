@@ -24,22 +24,25 @@ class TranslatorMiddleware(BaseMiddleware):
         """This method is calling for every update of Message and CallbackQuery
         type.
         """
-        translator: Translator = data["translator"]
+        translator: Translator = data['translator']
         if (
             conf.translate.locale_identify_mode
             == LocaleIdentificationMode.BY_TELEGRAM_LOCALE
         ):
             """Get locale from user language code"""
-            data["translator"] = translator(language=event.from_user.language_code)
+            data['translator'] = translator(
+                language=event.from_user.language_code
+            )
         elif (
-            conf.translate.locale_identify_mode == LocaleIdentificationMode.BY_DATABASE
+            conf.translate.locale_identify_mode
+            == LocaleIdentificationMode.BY_DATABASE
         ):
             """Get locale from cache"""
-            cache: Cache = data["cache"]
+            cache: Cache = data['cache']
             locale_key = LocaleScheme(user_id=event.from_user.id)
             # Use default locale
             locale = conf.translate.default_locale
             if await cache.exists(locale_key):
                 # If any locale key were set then use it
                 locale = await cache.get(locale_key)
-            data["translator"] = translator(language=locale)
+            data['translator'] = translator(language=locale)

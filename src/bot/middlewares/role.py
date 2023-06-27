@@ -22,7 +22,7 @@ class RoleMiddleware(BaseMiddleware):
         """This method is calling for every update of Message or CallbackQuery
         type.
         """
-        db: Database = data["db"]
+        db: Database = data['db']
         user = await db.user.get_by_where(User.user_id == event.from_user.id)
-        data["role"] = user.role
+        data['role'] = user.role
         return await handler(event, data)

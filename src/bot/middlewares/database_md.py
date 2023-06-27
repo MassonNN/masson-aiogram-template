@@ -21,6 +21,6 @@ class DatabaseMiddleware(BaseMiddleware):
         data: TransferData,
     ) -> Any:
         """This method is calling for every update."""
-        async with data["pool"] as session:  # type: AsyncSession
-            data["db"] = Database(session)
+        async with data['pool'] as session:  # type: AsyncSession
+            data['db'] = Database(session)
             return await handler(event, data)
