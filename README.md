@@ -24,10 +24,10 @@
 
 If you want to lint your code: \
 ```make lint``` \
-This will start isort, black and flake8 to src and tests folders
+This will start isort, blue and ruff to src and tests folders
 
 You can manually run any instrument by: \
-`make flake`, `make black` or `make isort`
+`make ruff`, `make blue` or `make isort`
 
 ### Migrations
 `make generate NAME=<name>` \
