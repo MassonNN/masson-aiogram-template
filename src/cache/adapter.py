@@ -27,18 +27,24 @@ class Cache:
     """Cache adapter."""
 
     def __init__(self, redis: Redis | dict | None = None):
+        """Initialize a Cache adapter with given Redis client
+
+        :param redis: Redis client instance
+        """
         self.client = redis or build_redis_client()
 
     @property
     def redis_client(self) -> Redis:
         """Redis client which used in the cache adapter
-        :return:
+
+        :return: Redis client
         """
         return self.client
 
     @final
     async def get(self, key: KeyLike) -> Any:
         """Get a value from cache database
+
         :param key:
         :return: Value.
         """
@@ -53,6 +59,7 @@ class Cache:
     @final
     async def set(self, key: KeyLike, value: Any = None):
         """Set a value to cache database
+
         :param key: Key to set
         :param value: Value in a serializable type
         :return: Nothing.
@@ -64,21 +71,14 @@ class Cache:
 
     @overload
     async def exists(self, key: KeyLike):
-        """Check whether key has already defined or not
-        :param key:
-        :return: (bool) Result.
-        """
         ...
 
     @overload
     async def exists(self, *keys: list[KeyLike]):
-        """Overload of method to check many keys
-        :param keys:
-        :return:
-        """
         ...
 
     async def exists(self, keys: KeyLike | list[KeyLike]):
+        """Exists implementation in adapter"""
         if not isinstance(keys, list):
             return await self.client.exists(
                 [

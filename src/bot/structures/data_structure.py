@@ -1,4 +1,6 @@
-"""This file contains TypedDict structure to store data which will
+""" Data Structures
+
+This file contains TypedDict structure to store data which will
 transfer throw Dispatcher->Middlewares->Handlers.
 """
 
@@ -16,6 +18,7 @@ from src.language.translator import LocalizedTranslator, Translator
 
 
 class TransferData(TypedDict):
+    """Common transfer data."""
     translator: Translator | LocalizedTranslator
     pool: Callable[[], AsyncSession]
     db: Database
@@ -24,5 +27,6 @@ class TransferData(TypedDict):
 
 
 class TransferUserData(TypedDict):
+    """Transfer data associated with user."""
     role: Role
     locale: Locales

@@ -1,3 +1,4 @@
+"""Translator middleware is used for inject translator dependency in handlers"""
 from typing import Any
 from collections.abc import Awaitable, Callable
 
@@ -20,6 +21,8 @@ class TranslatorMiddleware(BaseMiddleware):
         event: Message | CallbackQuery,
         data: TransferData,
     ) -> Any:
+        """This method is calling for every update of Message and CallbackQuery
+        type"""
         translator: Translator = data["translator"]
         if (
             conf.translate.locale_identify_mode

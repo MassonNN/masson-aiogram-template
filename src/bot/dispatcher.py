@@ -16,6 +16,15 @@ from .logic import routers
 def get_redis_storage(
     redis: Cache, state_ttl=conf.redis.state_ttl, data_ttl=conf.redis.data_ttl
 ):
+    """This function create redis storage with given options or get it forcely
+    from configuration.
+    :param redis: Redis client instance
+    :param state_ttl: FSM State Time-To-Delete timer in seconds (has effect only
+    for Redis database)
+    :param data_ttl: FSM Data Time-To-Delete timer in seconds (has effect only
+    for Redis database)
+    :return: Created Redis storage
+    """
     return RedisStorage(redis=redis, state_ttl=state_ttl, data_ttl=data_ttl)
 
 

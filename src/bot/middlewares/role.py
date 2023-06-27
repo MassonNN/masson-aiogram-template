@@ -1,3 +1,4 @@
+"""Role middleware used for get role of user for followed filtering"""
 from typing import Any
 from collections.abc import Awaitable, Callable
 
@@ -18,6 +19,8 @@ class RoleMiddleware(BaseMiddleware):
         event: Message | CallbackQuery,
         data: TransferUserData | TransferData,
     ) -> Any:
+        """This method is calling for every update of Message or CallbackQuery
+        type"""
         db: Database = data["db"]
         user = await db.user.get_by_where(User.user_id == event.from_user.id)
         data["role"] = user.role
