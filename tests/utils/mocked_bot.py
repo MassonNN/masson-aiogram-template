@@ -1,6 +1,6 @@
 from collections import deque
-from typing import TYPE_CHECKING
 from collections.abc import AsyncGenerator
+from typing import TYPE_CHECKING
 
 from aiogram import Bot
 from aiogram.client.session.base import BaseSession

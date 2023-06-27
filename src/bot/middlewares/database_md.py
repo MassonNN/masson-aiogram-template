@@ -1,7 +1,8 @@
 """Database middleware is a common way to inject database dependency
-in handlers."""
-from typing import Any
+in handlers.
+"""
 from collections.abc import Awaitable, Callable
+from typing import Any
 
 from aiogram import BaseMiddleware
 from aiogram.types import CallbackQuery, Message
@@ -19,7 +20,7 @@ class DatabaseMiddleware(BaseMiddleware):
         event: Message | CallbackQuery,
         data: TransferData,
     ) -> Any:
-        """This method is calling for every update"""
+        """This method is calling for every update."""
         async with data["pool"] as session:  # type: AsyncSession
             data["db"] = Database(session)
             return await handler(event, data)

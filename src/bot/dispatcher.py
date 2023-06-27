@@ -23,7 +23,7 @@ def get_redis_storage(
     for Redis database)
     :param data_ttl: FSM Data Time-To-Delete timer in seconds (has effect only
     for Redis database)
-    :return: Created Redis storage
+    :return: Created Redis storage.
     """
     return RedisStorage(redis=redis, state_ttl=state_ttl, data_ttl=data_ttl)
 

@@ -1,11 +1,11 @@
-""" Data Structures
+"""Data Structures.
 
 This file contains TypedDict structure to store data which will
 transfer throw Dispatcher->Middlewares->Handlers.
 """
 
-from typing import TypedDict
 from collections.abc import Callable
+from typing import TypedDict
 
 from aiogram import Bot
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -19,6 +19,7 @@ from src.language.translator import LocalizedTranslator, Translator
 
 class TransferData(TypedDict):
     """Common transfer data."""
+
     translator: Translator | LocalizedTranslator
     pool: Callable[[], AsyncSession]
     db: Database
@@ -28,5 +29,6 @@ class TransferData(TypedDict):
 
 class TransferUserData(TypedDict):
     """Transfer data associated with user."""
+
     role: Role
     locale: Locales

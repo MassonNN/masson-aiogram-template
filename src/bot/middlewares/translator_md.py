@@ -1,6 +1,6 @@
-"""Translator middleware is used for inject translator dependency in handlers"""
-from typing import Any
+"""Translator middleware is used for inject translator dependency in handlers."""
 from collections.abc import Awaitable, Callable
+from typing import Any
 
 from aiogram import BaseMiddleware
 from aiogram.types import CallbackQuery, Message
@@ -22,7 +22,8 @@ class TranslatorMiddleware(BaseMiddleware):
         data: TransferData,
     ) -> Any:
         """This method is calling for every update of Message and CallbackQuery
-        type"""
+        type.
+        """
         translator: Translator = data["translator"]
         if (
             conf.translate.locale_identify_mode

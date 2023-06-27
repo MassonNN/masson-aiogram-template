@@ -1,4 +1,3 @@
-
 import pytest
 from redis.asyncio.client import Redis
 

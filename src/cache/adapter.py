@@ -27,7 +27,7 @@ class Cache:
     """Cache adapter."""
 
     def __init__(self, redis: Redis | dict | None = None):
-        """Initialize a Cache adapter with given Redis client
+        """Initialize a Cache adapter with given Redis client.
 
         :param redis: Redis client instance
         """
@@ -35,7 +35,7 @@ class Cache:
 
     @property
     def redis_client(self) -> Redis:
-        """Redis client which used in the cache adapter
+        """Redis client which used in the cache adapter.
 
         :return: Redis client
         """
@@ -43,7 +43,7 @@ class Cache:
 
     @final
     async def get(self, key: KeyLike) -> Any:
-        """Get a value from cache database
+        """Get a value from cache database.
 
         :param key:
         :return: Value.
@@ -58,7 +58,7 @@ class Cache:
 
     @final
     async def set(self, key: KeyLike, value: Any = None):
-        """Set a value to cache database
+        """Set a value to cache database.
 
         :param key: Key to set
         :param value: Value in a serializable type
@@ -78,7 +78,7 @@ class Cache:
         ...
 
     async def exists(self, keys: KeyLike | list[KeyLike]):
-        """Exists implementation in adapter"""
+        """Exists implementation in adapter."""
         if not isinstance(keys, list):
             return await self.client.exists(
                 [

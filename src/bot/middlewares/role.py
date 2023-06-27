@@ -1,6 +1,6 @@
-"""Role middleware used for get role of user for followed filtering"""
-from typing import Any
+"""Role middleware used for get role of user for followed filtering."""
 from collections.abc import Awaitable, Callable
+from typing import Any
 
 from aiogram import BaseMiddleware
 from aiogram.types import CallbackQuery, Message, TelegramObject
@@ -20,7 +20,8 @@ class RoleMiddleware(BaseMiddleware):
         data: TransferUserData | TransferData,
     ) -> Any:
         """This method is calling for every update of Message or CallbackQuery
-        type"""
+        type.
+        """
         db: Database = data["db"]
         user = await db.user.get_by_where(User.user_id == event.from_user.id)
         data["role"] = user.role
