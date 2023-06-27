@@ -11,7 +11,7 @@ help:
 	@echo "  requirements  Export poetry.lock to requirements.txt"
 
 .PHONY:	blue
-black:
+blue:
 	poetry run blue src/ tests/
 
 .PHONY: isort
