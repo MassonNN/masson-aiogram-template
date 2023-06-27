@@ -10,7 +10,7 @@ packages = []
 [tool.poetry.dependencies]
 python = "^3.10"
 aiogram = "^3.0b6"
-sqlalchemy = "^2.0.0"
+sqlalchemy = "^2.0.17"
 greenlet = "^2.0.2"
 asyncpg = "^0.27.0"
 alembic = "^1.9.2"
@@ -25,9 +25,8 @@ optional=true
 pytest = "^7.2.1"
 pytest-asyncio = "^0.20.3"
 mypy = "^1.0.1"
-black = "^23.1.0"
-flake8 = "^6.0.0"
 ruff = "^0.0.275"
+blue = "^0.9.1"
 
 [tool.ruff]
 line-length = 88

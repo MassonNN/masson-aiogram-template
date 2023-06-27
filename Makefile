@@ -10,9 +10,9 @@ help:
 	@echo "  lint		Reformat code"
 	@echo "  requirements  Export poetry.lock to requirements.txt"
 
-.PHONY:	black
+.PHONY:	blue
 black:
-	poetry run black src/ tests/
+	poetry run blue src/ tests/
 
 .PHONY: isort
 isort:
@@ -27,7 +27,7 @@ ruff:
 	poetry run ruff check src/ tests/ --fix --respect-gitignore
 
 .PHONY: lint
-lint: black isort flake ruff
+lint: blue isort flake ruff
 
 .PHONY: run
 run:
