@@ -18,16 +18,12 @@ blue:
 isort:
 	poetry run isort src/ tests/
 
-.PHONY: flake
-flake:
-	poetry run flake8 src/ tests/
-
 .PHONY: ruff
 ruff:
 	poetry run ruff check src/ tests/ --fix --respect-gitignore
 
 .PHONY: lint
-lint: blue isort flake ruff
+lint: blue isort ruff
 
 .PHONY: run
 run:
