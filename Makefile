@@ -16,7 +16,7 @@ blue:
 
 .PHONY:	mypy
 mypy:
-	poetry run mypy --strict --pretty src/ tests/
+	poetry run mypy --strict --pretty --explicit-package-bases --install-types src/ tests/
 
 .PHONY: isort
 isort:
