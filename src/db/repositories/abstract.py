@@ -1,6 +1,6 @@
 """Repository file."""
 import abc
-from typing import Generic, TypeVar
+from typing import Generic, TypeVar, Sequence
 
 from sqlalchemy import delete, select
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -47,7 +47,7 @@ class Repository(Generic[AbstractModel]):
 
     async def get_many(
         self, whereclause, limit: int = 100, order_by=None
-    ) -> list[AbstractModel]:
+    ) -> Sequence[Base]:
         """Get many models from the database with whereclause.
 
         :param whereclause: Where clause for finding models
