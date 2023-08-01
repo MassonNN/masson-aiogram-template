@@ -1,3 +1,4 @@
+"""Configuration for integrational tests."""
 from collections.abc import Callable
 
 import pytest
@@ -13,6 +14,7 @@ from tests.utils.mocked_database import MockedDatabase
 
 @pytest_asyncio.fixture()
 async def pool():
+    """Pool (sessionmaker) fixture."""
     pool = create_session_maker()
     yield pool
     await pool.close_all()  # noqa
@@ -20,6 +22,7 @@ async def pool():
 
 @pytest_asyncio.fixture()
 async def db(pool: Callable[[], AsyncSession]):
+    """Database fixture."""
     async with pool() as session:  # type: AsyncSession
         database = MockedDatabase(session)
         yield database
@@ -28,14 +31,17 @@ async def db(pool: Callable[[], AsyncSession]):
 
 @pytest.fixture()
 def bot():
+    """Bot fixture."""
     return MockedBot()
 
 
 @pytest.fixture()
 def storage():
+    """Storage fixture."""
     return MemoryStorage()
 
 
 @pytest.fixture()
 def dp(storage):
+    """Dispatcher fixture."""
     return get_dispatcher(storage=storage)

@@ -1,3 +1,4 @@
+"""Tests for cache."""
 import pytest
 from redis.asyncio.client import Redis
 
@@ -9,6 +10,7 @@ from language.translator import LocaleScheme
 
 @pytest.fixture()
 def cache():
+    """Cache fixture."""
     class FakeRedis(Redis):
         def __init__(self):
             super().__init__()
@@ -35,6 +37,7 @@ def cache():
 @pytest.mark.parametrize('value', (Locales.RU, Locales.EN, Locales.UK))
 @pytest.mark.asyncio
 async def test_cache_set(cache, value):
+    """Test cache.set() and cache.get() methods."""
     await cache.set(key=1, value=value)
     res = await cache.get(key=1)
     assert res == value
@@ -50,6 +53,7 @@ async def test_cache_set(cache, value):
 )
 @pytest.mark.asyncio
 async def test_cache_set_locale(cache, locale, expected):
+    """Test cache.set() and cache.get() methods with LocaleScheme."""
     await cache.set(LocaleScheme(locale=locale, user_id=1))
     res = await cache.get(LocaleScheme(user_id=1))
     assert res == expected

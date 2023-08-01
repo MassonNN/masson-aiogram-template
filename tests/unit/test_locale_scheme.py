@@ -1,8 +1,10 @@
+"""Tests for LocaleScheme."""
 from src.language.enums import Locales
 from src.language.translator import LocaleScheme
 
 
 def test_generate_scheme():
+    """Check if LocaleScheme generates correctly."""
     str_value = Locales.RU.value
     lc = LocaleScheme(user_id=1, locale=Locales.RU)
     assert str(lc) == str_value

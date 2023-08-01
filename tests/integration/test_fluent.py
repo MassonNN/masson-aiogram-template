@@ -1,3 +1,4 @@
+"""Tests for translator service."""
 import pytest
 
 from language.translator import LocalizedTranslator, Translator
@@ -5,9 +6,7 @@ from language.translator import LocalizedTranslator, Translator
 
 @pytest.fixture()
 def translator():
-    """Translator for tests
-    :return:
-    """
+    """Translator for tests."""
     yield Translator()
 
 
@@ -19,4 +18,5 @@ def localized_translator(translator: Translator):
 
 @pytest.mark.asyncio
 async def test_loc_translation(localized_translator: LocalizedTranslator):
+    """Check if translator gets correct translation."""
     assert localized_translator.get(key='welcome') == 'Привет!'

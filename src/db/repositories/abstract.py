@@ -18,6 +18,7 @@ class Repository(Generic[AbstractModel]):
 
     def __init__(self, type_model: type[Base], session: AsyncSession):
         """Initialize abstract repository class
+
         :param type_model: Which model will be used for operations
         :param session: Session in which repository will work.
         """
@@ -26,6 +27,7 @@ class Repository(Generic[AbstractModel]):
 
     async def get(self, ident: int | str) -> AbstractModel:
         """Get an ONE model from the database with PK
+
         :param ident: Key which need to find entry in database
         :return:
         """
@@ -33,6 +35,10 @@ class Repository(Generic[AbstractModel]):
 
     async def get_by_where(self, whereclause) -> AbstractModel | None:
         """Get an ONE model from the database with whereclause
+
+        TODO:
+            1) https://github.com/MassonNN/masson-aiogram-template/issues/15
+
         :param whereclause: Clause by which entry will be found
         :return: Model if only one model was found, else None.
         """
@@ -69,8 +75,8 @@ class Repository(Generic[AbstractModel]):
 
     @abc.abstractmethod
     async def new(self, *args, **kwargs) -> None:
-        """This method is need to be implemented in child classes,
-        it is responsible for adding a new model to the database
+        """Add new entry of model to the database
+
         :return: Nothing.
         """
         ...

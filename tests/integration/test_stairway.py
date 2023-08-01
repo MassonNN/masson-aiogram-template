@@ -1,3 +1,4 @@
+"""Stairway tests for alembic migrations."""
 import pytest
 from alembic.command import downgrade, upgrade
 from alembic.config import Config
@@ -23,6 +24,7 @@ def get_revisions():
 @pytest.mark.migrations
 @pytest.mark.parametrize('revision', get_revisions())
 def test_migrations_stairway(alembic_config: Config, revision: Script):
+    """Stairway tests."""
     upgrade(alembic_config, revision.revision)
 
     # We need -1 for downgrading first migration (its down_revision is None)

@@ -21,9 +21,7 @@ class TranslatorMiddleware(BaseMiddleware):
         event: Message | CallbackQuery,
         data: TransferData,
     ) -> Any:
-        """This method is calling for every update of Message and CallbackQuery
-        type.
-        """
+        """This method is calling for every update of Message and CallbackQuery type."""
         translator: Translator = data['translator']
         if (
             conf.translate.locale_identify_mode

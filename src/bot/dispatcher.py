@@ -18,6 +18,7 @@ def get_redis_storage(
 ):
     """This function create redis storage with given options or get it forcely
     from configuration.
+
     :param redis: Redis client instance
     :param state_ttl: FSM State Time-To-Delete timer in seconds (has effect only
     for Redis database)

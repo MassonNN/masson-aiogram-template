@@ -11,15 +11,19 @@ from .repositories import ChatRepo, UserRepo
 
 
 def create_async_engine(url: URL | str) -> AsyncEngine:
-    """:param url:
-    :return:
+    """Create async engine with given URL
+
+    :param url: URL to connect
+    :return: AsyncEngine
     """
     return _create_async_engine(url=url, echo=conf.debug, pool_pre_ping=True)
 
 
 def create_session_maker(engine: AsyncEngine = None) -> sessionmaker:
-    """:param engine:
-    :return:
+    """Create session maker
+
+    :param engine: Engine to use
+    :return: sessionmaker
     """
     return sessionmaker(
         engine or create_async_engine(conf.db.build_connection_str()),
@@ -29,7 +33,9 @@ def create_session_maker(engine: AsyncEngine = None) -> sessionmaker:
 
 
 class Database:
-    """Database class is the highest abstraction level of database and
+    """Database class
+
+    is the highest abstraction level of database and
     can be used in the handlers or any others bot-side functions.
     """
 
@@ -46,6 +52,12 @@ class Database:
         user: UserRepo = None,
         chat: ChatRepo = None,
     ):
+        """Initialize Database class
+
+        :param session: AsyncSession to use
+        :param user: (Optional) User repository
+        :param chat: (Optional) Chat repository
+        """
         self.session = session
         self.user = user or UserRepo(session=session)
         self.chat = chat or ChatRepo(session=session)

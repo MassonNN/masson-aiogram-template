@@ -1,6 +1,4 @@
-"""Database middleware is a common way to inject database dependency
-in handlers.
-"""
+"""Database middleware is a common way to inject database dependency in handlers."""
 from collections.abc import Awaitable, Callable
 from typing import Any
 

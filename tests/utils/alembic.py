@@ -1,3 +1,4 @@
+"""Alembic utils for tests."""
 import importlib
 import os
 from argparse import Namespace
