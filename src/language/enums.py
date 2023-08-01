@@ -1,3 +1,4 @@
+"""LocaleIdentificationMode."""
 import enum
 
 

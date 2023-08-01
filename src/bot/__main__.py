@@ -9,7 +9,7 @@ from src.bot.structures.data_structure import TransferData
 from src.cache import Cache
 from src.configuration import conf
 from src.db.database import create_session_maker
-from src.language.translator import Translator
+from src.language import Translator
 
 
 async def start_bot():

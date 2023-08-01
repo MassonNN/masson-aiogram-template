@@ -17,11 +17,9 @@ class RoleMiddleware(BaseMiddleware):
         self,
         handler: Callable[[TelegramObject, dict[str, Any]], Awaitable[Any]],
         event: Message | CallbackQuery,
-        data: TransferUserData | TransferData,
+        data: TransferData | TransferUserData,
     ) -> Any:
-        """This method is calling for every update of Message or CallbackQuery
-        type.
-        """
+        """This method is calling for every update of Message or CallbackQuery type."""
         db: Database = data['db']
         user = await db.user.get_by_where(User.user_id == event.from_user.id)
         data['role'] = user.role

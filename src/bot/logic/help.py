@@ -4,7 +4,7 @@
 from aiogram import Router, types
 from aiogram.filters import Command
 
-from src.language.translator import LocalizedTranslator
+from src.language import LocalizedTranslator
 
 help_router = Router(name='help')
 

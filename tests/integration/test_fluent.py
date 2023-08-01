@@ -1,7 +1,7 @@
 """Tests for translator service."""
 import pytest
 
-from language.translator import LocalizedTranslator, Translator
+from src.language import LocalizedTranslator, Translator
 
 
 @pytest.fixture()

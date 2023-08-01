@@ -4,13 +4,14 @@ from redis.asyncio.client import Redis
 
 from cache import Cache
 from cache.adapter import KeyLike
-from language.enums import Locales
-from language.translator import LocaleScheme
+from src.language.enums import Locales
+from src.language import LocaleScheme
 
 
 @pytest.fixture()
 def cache():
     """Cache fixture."""
+
     class FakeRedis(Redis):
         def __init__(self):
             super().__init__()

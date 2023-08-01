@@ -26,7 +26,8 @@ class UserRepo(Repository[User]):
         role: Role | None = Role.USER,
         user_chat: type[Base] = None,
     ) -> None:
-        """Insert a new user into the database
+        """Insert a new user into the database.
+
         :param user_id: Telegram user id
         :param user_name: Telegram username
         :param first_name: Telegram profile first name

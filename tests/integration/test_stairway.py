@@ -8,6 +8,7 @@ from tests.utils.alembic import alembic_config_from_url
 
 
 def get_revisions():
+    """Get revisions for stairway test."""
     # Create Alembic configuration object
     # (we don't need database for getting revisions list)
     config = alembic_config_from_url()

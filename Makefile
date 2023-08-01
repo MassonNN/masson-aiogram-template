@@ -14,6 +14,10 @@ help:
 blue:
 	poetry run blue src/ tests/
 
+.PHONY:	mypy
+mypy:
+	poetry run mypy --strict --pretty src/ tests/
+
 .PHONY: isort
 isort:
 	poetry run isort src/ tests/
@@ -23,7 +27,7 @@ ruff:
 	poetry run ruff check src/ tests/ --fix --respect-gitignore
 
 .PHONY: lint
-lint: blue isort ruff
+lint: blue isort ruff mypy
 
 .PHONY: run
 run:

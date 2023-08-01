@@ -17,6 +17,7 @@ DEFAULT_PG_URL = conf.db.build_connection_str()
 def make_alembic_config(
     cmd_opts: Namespace | SimpleNamespace, base_path: str = PROJECT_PATH
 ) -> Config:
+    """Make alembic config for stairway integration tests."""
     # Replace path to alembic.ini file to absolute
     if not os.path.isabs(cmd_opts.config):
         cmd_opts.config = os.path.join(base_path, cmd_opts.config)
@@ -70,6 +71,7 @@ def make_validation_params_groups(
     *migrations,
 ) -> list[MigrationValidationParamsGroup]:
     """Creates objects that describe test for data migrations.
+
     See examples in tests/data_migrations/migration_*.py.
     """
     data = []

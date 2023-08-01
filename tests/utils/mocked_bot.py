@@ -1,3 +1,4 @@
+"""Mocked bot."""
 from collections import deque
 from collections.abc import AsyncGenerator
 from typing import TYPE_CHECKING
@@ -13,6 +14,7 @@ class MockedSession(BaseSession):
     """Mocked session for tests."""
 
     def __init__(self):
+        """Mocked session is used for offline integration tests."""
         super().__init__()
         self.responses: deque[Response[TelegramType]] = deque()
         self.requests: deque[Request] = deque()
@@ -21,7 +23,8 @@ class MockedSession(BaseSession):
     def add_result(
         self, response: Response[TelegramType]
     ) -> Response[TelegramType]:
-        """Mocked method for add result
+        """Mocked method for add result.
+
         :param response: Response to add
         :return: this Response.
         """
@@ -29,13 +32,15 @@ class MockedSession(BaseSession):
         return response
 
     def get_request(self) -> Request:
-        """Mocked method for get request
+        """Mocked method for get request.
+
         :return: Request.
         """
         return self.requests.pop()
 
     async def close(self):
-        """Mocked method for closing the session
+        """Mocked method for closing the session.
+
         :return: Nothing.
         """
         self.closed = True
@@ -46,7 +51,8 @@ class MockedSession(BaseSession):
         method: TelegramMethod[TelegramType],
         timeout: int | None = UNSET,
     ) -> TelegramType:
-        """Build request and get response
+        """Build request and get response.
+
         :param bot: Bot instance which used for request
         :param method: method to make request
         :param timeout: Timeout when request is need to be aborted
@@ -80,6 +86,7 @@ class MockedBot(Bot):
         session: MockedSession
 
     def __init__(self, **kwargs):
+        """Mocked session init."""
         super().__init__(
             kwargs.pop('token', '42:TEST'), session=MockedSession(), **kwargs
         )
@@ -103,15 +110,15 @@ class MockedBot(Bot):
         retry_after: int | None = None,
     ) -> Response[TelegramType]:
         """The mocked add_result_for function adds a result to the session.
+
         :param self: Access the class instance
-        :param method:Type[TelegramMethod[TelegramType]]: Get the return type of the method
-        :param ok:bool: Indicate whether the request was successful or not
-        :param result:TelegramType=None: Define the type of the result
-        :param description:Optional[str]=None: Provide a description of the result
-        :param error_code:int=200: Indicate that the request was successful
-        :param migrate_to_chat_id:Optional[int]=None: Indicate that the bot should be transferred to a different chat
-        :param retry_after:Optional[int]=None: Specify the time to wait before a request can be repeated
-        :param : Store the result of the request
+        :param method: Get the return type of the method
+        :param ok: Indicate whether the request was successful or not
+        :param result: Define the type of the result
+        :param description: Provide a description of the result
+        :param error_code: Indicate that the request was successful
+        :param migrate_to_chat_id: Migrate to chat update
+        :param retry_after: Specify the time to wait before a request can be repeated
         :return: A response object, which is a subclass of namedtuple
         :doc-author: Trelent.
         """
@@ -129,8 +136,12 @@ class MockedBot(Bot):
         return response
 
     def get_request(self) -> Request:
-        """The get_request function returns a Request object that has been created by the Session object.
-        The get_request function is called when the user wants to make a request to an endpoint.
+        """Get last request.
+
+        The get_request function returns a Request object that has been created
+        by the Session object. The get_request function is called when the user
+        wants to make a request to an endpoint.
+
         :param self: Access the class attributes and methods
         :return: A request object
         :doc-author: Trelent.

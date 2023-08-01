@@ -20,7 +20,7 @@ class Translator:
     language: str
 
     def __init__(self):
-        """Init Translator adapter"""
+        """Init Translator adapter."""
         self.translator_hub = TranslatorHub(
             root_locale='ru',
             locales_map={
@@ -60,11 +60,11 @@ class LocalizedTranslator:
     translator: TranslatorRunner
 
     def __init__(self, translator: TranslatorRunner):
-        """Init localized translator"""
+        """Init localized translator."""
         self.translator = translator
 
     def get(self, key: str, *args, **kwargs) -> str:
-        """Get translated text with key
+        """Get translated text with key.
 
         :param key:
         :return:
@@ -103,4 +103,5 @@ class LocaleScheme(NamedTuple):
 
     @classmethod
     def is_locale_scheme(cls, key: str):
+        """Check is key a locale scheme."""
         return len(split := key.split(':')) == 2 and split[0] == 'locale'

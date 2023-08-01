@@ -5,19 +5,18 @@ from aiogram.fsm.storage.base import BaseEventIsolation, BaseStorage
 from aiogram.fsm.storage.memory import MemoryStorage
 from aiogram.fsm.storage.redis import RedisStorage
 from aiogram.fsm.strategy import FSMStrategy
+from redis.asyncio.client import Redis
 
 from src.bot.middlewares.translator_md import TranslatorMiddleware
-from src.cache import Cache
 from src.configuration import conf
 
 from .logic import routers
 
 
 def get_redis_storage(
-    redis: Cache, state_ttl=conf.redis.state_ttl, data_ttl=conf.redis.data_ttl
+    redis: Redis, state_ttl=conf.redis.state_ttl, data_ttl=conf.redis.data_ttl
 ):
-    """This function create redis storage with given options or get it forcely
-    from configuration.
+    """This function create redis storage or get it forcely from configuration.
 
     :param redis: Redis client instance
     :param state_ttl: FSM State Time-To-Delete timer in seconds (has effect only

@@ -17,7 +17,7 @@ class Repository(Generic[AbstractModel]):
     session: AsyncSession
 
     def __init__(self, type_model: type[Base], session: AsyncSession):
-        """Initialize abstract repository class
+        """Initialize abstract repository class.
 
         :param type_model: Which model will be used for operations
         :param session: Session in which repository will work.
@@ -26,7 +26,7 @@ class Repository(Generic[AbstractModel]):
         self.session = session
 
     async def get(self, ident: int | str) -> AbstractModel:
-        """Get an ONE model from the database with PK
+        """Get an ONE model from the database with PK.
 
         :param ident: Key which need to find entry in database
         :return:
@@ -34,9 +34,9 @@ class Repository(Generic[AbstractModel]):
         return await self.session.get(entity=self.type_model, ident=ident)
 
     async def get_by_where(self, whereclause) -> AbstractModel | None:
-        """Get an ONE model from the database with whereclause
+        """Get an ONE model from the database with whereclause.
 
-        TODO:
+        Todo:
             1) https://github.com/MassonNN/masson-aiogram-template/issues/15
 
         :param whereclause: Clause by which entry will be found
@@ -48,7 +48,8 @@ class Repository(Generic[AbstractModel]):
     async def get_many(
         self, whereclause, limit: int = 100, order_by=None
     ) -> list[AbstractModel]:
-        """Get many models from the database with whereclause
+        """Get many models from the database with whereclause.
+
         :param whereclause: Where clause for finding models
         :param limit: (Optional) Limit count of results
         :param order_by: (Optional) Order by clause.
@@ -75,7 +76,7 @@ class Repository(Generic[AbstractModel]):
 
     @abc.abstractmethod
     async def new(self, *args, **kwargs) -> None:
-        """Add new entry of model to the database
+        """Add new entry of model to the database.
 
         :return: Nothing.
         """

@@ -1,6 +1,6 @@
 """Tests for LocaleScheme."""
 from src.language.enums import Locales
-from src.language.translator import LocaleScheme
+from src.language import LocaleScheme
 
 
 def test_generate_scheme():

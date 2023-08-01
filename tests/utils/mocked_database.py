@@ -1,9 +1,12 @@
+"""Mocked Database."""
 from sqlalchemy import MetaData
 
 from src.db import Base, Database
 
 
 class MockedDatabase(Database):
+    """Mocked database is used for integration tests."""
+
     async def teardown(self):
         """Clear all data in the database."""
         metadata: MetaData = Base.metadata
