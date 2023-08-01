@@ -18,6 +18,6 @@ class MockedRedis(Redis):
         self.data[name] = value
         return True
 
-    async def exists(self, *names: str) -> int:
+    async def exists(self, name: str) -> int:
         """Check if keys are exists in mocked storage."""
-        return all(name in self.data for name in names)
+        return name in self.data
