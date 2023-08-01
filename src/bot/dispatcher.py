@@ -7,7 +7,6 @@ from aiogram.fsm.storage.redis import RedisStorage
 from aiogram.fsm.strategy import FSMStrategy
 from redis.asyncio.client import Redis
 
-from src.bot.middlewares.translator_md import TranslatorMiddleware
 from src.configuration import conf
 
 from .logic import routers
@@ -43,7 +42,5 @@ def get_dispatcher(
         dp.include_router(router)
 
     # Register middlewares
-    dp.message.middleware(TranslatorMiddleware())
-    dp.callback_query.middleware(TranslatorMiddleware())
 
     return dp
