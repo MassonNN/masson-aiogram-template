@@ -7,8 +7,8 @@ from redis.asyncio.client import Redis
 
 from src.bot.dispatcher import get_dispatcher, get_redis_storage
 from src.bot.structures.data_structure import TransferData
-from src.db.database import create_async_engine
 from src.configuration import conf
+from src.db.database import create_async_engine
 
 
 async def start_bot():
@@ -20,7 +20,7 @@ async def start_bot():
             host=conf.redis.host,
             password=conf.redis.passwd,
             username=conf.redis.username,
-            port=conf.redis.port
+            port=conf.redis.port,
         )
     )
     dp = get_dispatcher(storage=storage)
@@ -31,7 +31,6 @@ async def start_bot():
         **TransferData(
             engine=create_async_engine(url=conf.db.build_connection_str())
         )
-
     )
 
 

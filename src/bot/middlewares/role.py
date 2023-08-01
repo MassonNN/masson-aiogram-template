@@ -7,7 +7,6 @@ from aiogram.types import CallbackQuery, Message, TelegramObject
 
 from src.bot.structures.data_structure import TransferData
 from src.db import Database
-from src.db.models import User
 
 
 class RoleMiddleware(BaseMiddleware):
@@ -17,7 +16,7 @@ class RoleMiddleware(BaseMiddleware):
         self,
         handler: Callable[[TelegramObject, dict[str, Any]], Awaitable[Any]],
         event: Message | CallbackQuery,
-        data: TransferData
+        data: TransferData,
     ) -> Any:
         """This method calls each update of Message or CallbackQuery type."""
         db: Database = data['db']

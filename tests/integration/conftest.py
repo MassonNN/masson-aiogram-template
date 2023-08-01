@@ -2,14 +2,14 @@
 import pytest
 import pytest_asyncio
 from aiogram.fsm.storage.memory import MemoryStorage
-from sqlalchemy.ext.asyncio import AsyncSession, AsyncEngine
+from sqlalchemy.ext.asyncio import AsyncEngine, AsyncSession
 
 from src.bot.dispatcher import get_dispatcher
 from tests.utils.mocked_bot import MockedBot
 from tests.utils.mocked_database import MockedDatabase
 
 
-@pytest_asyncio.fixture(scope="function")
+@pytest_asyncio.fixture(scope='function')
 async def session(engine: AsyncEngine) -> AsyncSession:
     """Async session fixture.
 
@@ -19,7 +19,7 @@ async def session(engine: AsyncEngine) -> AsyncSession:
         yield session
 
 
-@pytest_asyncio.fixture(scope="function")
+@pytest_asyncio.fixture(scope='function')
 async def db(session: AsyncSession):
     """Database fixture."""
     database = MockedDatabase(session)

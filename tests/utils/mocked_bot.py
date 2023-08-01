@@ -1,7 +1,7 @@
 """Mocked bot."""
 from collections import deque
 from collections.abc import AsyncGenerator
-from typing import TYPE_CHECKING, Optional, Any
+from typing import TYPE_CHECKING, Any
 
 from aiogram import Bot
 from aiogram.client.session.base import BaseSession
@@ -73,12 +73,13 @@ class MockedSession(BaseSession):
             )
             return response.result  # type: ignore
 
-    async def stream_content(self,
+    async def stream_content(
+        self,
         url: str,
-        headers: Optional[dict[str, Any]] = None,
+        headers: dict[str, Any] | None = None,
         timeout: int = 30,
         chunk_size: int = 65536,
-        raise_for_status: bool = True
+        raise_for_status: bool = True,
     ) -> AsyncGenerator[bytes, None]:
         """Just mocked and shutted down method."""
         yield b''

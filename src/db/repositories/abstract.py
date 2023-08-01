@@ -1,6 +1,7 @@
 """Repository file."""
 import abc
-from typing import Generic, TypeVar, Sequence
+from typing import Generic, TypeVar
+from collections.abc import Sequence
 
 from sqlalchemy import delete, select
 from sqlalchemy.ext.asyncio import AsyncSession

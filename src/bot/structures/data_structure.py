@@ -15,6 +15,7 @@ from src.db.database import Database
 
 class TransferData(TypedDict):
     """Common transfer data."""
+
     engine: AsyncEngine
     db: Database
     bot: Bot
