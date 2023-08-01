@@ -19,19 +19,6 @@ def create_async_engine(url: URL | str) -> AsyncEngine:
     return _create_async_engine(url=url, echo=conf.debug, pool_pre_ping=True)
 
 
-def create_session_maker(engine: AsyncEngine = None) -> sessionmaker:
-    """Create session maker.
-
-    :param engine: Engine to use
-    :return: sessionmaker
-    """
-    return sessionmaker(
-        engine or create_async_engine(conf.db.build_connection_str()),
-        class_=AsyncSession,
-        expire_on_commit=False,
-    )
-
-
 class Database:
     """Database class.
 
