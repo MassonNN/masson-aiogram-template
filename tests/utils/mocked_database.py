@@ -9,7 +9,7 @@ class MockedDatabase(Database):
 
     async def teardown(self):
         """Clear all data in the database."""
-        metadata: MetaData = Base.metadata
-        for table in metadata.tables.values():
+        metadata: MetaData = Base.metadata  # noqa
+        for table in metadata.sorted_tables:
             await self.session.execute(table.delete())
         await self.session.commit()
