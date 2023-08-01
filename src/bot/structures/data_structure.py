@@ -18,9 +18,4 @@ class TransferData(TypedDict):
     engine: AsyncEngine
     db: Database
     bot: Bot
-
-
-class TransferUserData(TypedDict):
-    """Transfer data associated with user."""
-
     role: Role

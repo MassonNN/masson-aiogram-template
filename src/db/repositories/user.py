@@ -1,5 +1,6 @@
 """User repository file."""
 
+from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from src.bot.structures.role import Role
@@ -37,7 +38,7 @@ class UserRepo(Repository[User]):
         :param role: User's role
         :param user_chat: Telegram chat with user.
         """
-        new_user = await self.session.merge(
+        await self.session.merge(
             User(
                 user_id=user_id,
                 user_name=user_name,
@@ -49,4 +50,8 @@ class UserRepo(Repository[User]):
                 user_chat=user_chat,
             )
         )
-        return new_user
+
+    async def get_role(self, user_id: int) -> Role:
+        """Get user role by id."""
+        return await self.session.scalar(
+            select(User.role).where(User.user_id == user_id).limit(1))

@@ -4,6 +4,7 @@ from typing import Any
 
 from aiogram import BaseMiddleware
 from aiogram.types import CallbackQuery, Message
+from sqlalchemy.ext.asyncio import AsyncSession
 
 from src.bot.structures.data_structure import TransferData
 from src.db.database import Database
@@ -18,7 +19,7 @@ class DatabaseMiddleware(BaseMiddleware):
         event: Message | CallbackQuery,
         data: TransferData,
     ) -> Any:
-        """This method is calling for every update."""
-        async with data['pool'] as session:  # type: AsyncSession
+        """This method calls every update."""
+        async with AsyncSession(bind=data['engine']) as session:
             data['db'] = Database(session)
             return await handler(event, data)

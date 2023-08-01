@@ -5,7 +5,7 @@ from typing import Any
 from aiogram import BaseMiddleware
 from aiogram.types import CallbackQuery, Message, TelegramObject
 
-from src.bot.structures.data_structure import TransferData, TransferUserData
+from src.bot.structures.data_structure import TransferData
 from src.db import Database
 from src.db.models import User
 
@@ -17,10 +17,9 @@ class RoleMiddleware(BaseMiddleware):
         self,
         handler: Callable[[TelegramObject, dict[str, Any]], Awaitable[Any]],
         event: Message | CallbackQuery,
-        data: TransferData | TransferUserData,
+        data: TransferData
     ) -> Any:
-        """This method is calling for every update of Message or CallbackQuery type."""
+        """This method calls each update of Message or CallbackQuery type."""
         db: Database = data['db']
-        user = await db.user.get_by_where(User.user_id == event.from_user.id)
-        data['role'] = user.role
+        data['role'] = await db.user.get_role()
         return await handler(event, data)
