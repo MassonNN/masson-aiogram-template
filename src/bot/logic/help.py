@@ -4,12 +4,11 @@
 from aiogram import Router, types
 from aiogram.filters import Command
 
-from src.language import LocalizedTranslator
 
 help_router = Router(name='help')
 
 
 @help_router.message(Command(commands='help'))
-async def help(message: types.Message, translator: LocalizedTranslator):
+async def help_handler(message: types.Message):
     """Help command handler."""
-    return await message.answer(translator.get('start'))
+    return await message.answer('Hi, world!')

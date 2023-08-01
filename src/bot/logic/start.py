@@ -4,14 +4,11 @@
 from aiogram import Router, types
 from aiogram.filters import CommandStart
 
-from src.language import LocalizedTranslator
 
 start_router = Router(name='start')
 
 
 @start_router.message(CommandStart())
-async def start(message: types.Message, translator: LocalizedTranslator):
+async def start_handler(message: types.Message):
     """Start command handler."""
-    return await message.answer(
-        translator.get('welcome').format(username=message.from_user.username)
-    )
+    return await message.answer('Hi, telegram!')
