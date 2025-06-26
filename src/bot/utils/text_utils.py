@@ -1,4 +1,4 @@
-from aiogram.types import User, Chat
+from aiogram.types import Chat, User
 
 
 def generate_user_url_tg(user: User):
@@ -27,10 +27,9 @@ def message_link(chat_id: int, text: str, message_id: int):
 
 
 def message_link_by_name(chat_name: str, text: str, message_id: int):
-    """
-    Generates link to a message with chat username
+    """Generates link to a message with chat username
     :param chat_name: Telegram chat username (@username)
     :param text: Link placeholder text
-    :param message_id: Message id
+    :param message_id: Message id.
     """
     return f'<a href="https://t.me/{chat_name}/{message_id}">{text}</a>'

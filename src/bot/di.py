@@ -1,15 +1,12 @@
-from typing import AsyncIterable, Final, Callable
+from typing import AsyncIterable, Callable, Final
 
-from aiogram import Dispatcher
 from aiogram.fsm.storage.base import BaseStorage
 from aiogram.fsm.storage.redis import RedisStorage
-from aiogram.fsm.strategy import FSMStrategy
-from dishka import Provider, provide, Scope
+from dishka import Provider, Scope, provide
 from dishka.integrations.aiogram import CONTAINER_NAME
 from dishka.integrations.base import wrap_injection
 from redis.asyncio import Redis
 
-from src.bot.dispatcher import setup_dispatcher
 from src.configuration import Configuration
 
 

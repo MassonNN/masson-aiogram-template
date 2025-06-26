@@ -1,30 +1,25 @@
 """Configuration for integrational tests."""
 import pytest
 import pytest_asyncio
-from aiogram.fsm.storage.memory import MemoryStorage
-from sqlalchemy.ext.asyncio import AsyncEngine, AsyncSession
+from aiogram import Dispatcher
+from dishka import make_async_container
+from dishka.integrations.aiogram import setup_dishka
 
-from src.bot.dispatcher import get_dispatcher
+from src.bot.di import (ConfigurationProvider, FSMStorageProvider,
+                        InfrastructureProvider)
+from src.bot.dispatcher import setup_dispatcher
+from src.db.di import DatabaseProvider
 from tests.utils.mocked_bot import MockedBot
-from tests.utils.mocked_database import MockedDatabase
 
 
-@pytest_asyncio.fixture(scope='function')
-async def session(engine: AsyncEngine) -> AsyncSession:
-    """Async session fixture.
-
-    :param engine: Bind engine for open session
-    """
-    async with AsyncSession(bind=engine) as session:
-        yield session
-
-
-@pytest_asyncio.fixture(scope='function')
-async def db(session: AsyncSession):
-    """Database fixture."""
-    database = MockedDatabase(session)
-    yield database
-    await database.teardown()
+@pytest_asyncio.fixture(scope="session")
+async def container():
+    return make_async_container(
+        DatabaseProvider(),
+        InfrastructureProvider(),
+        ConfigurationProvider(),
+        FSMStorageProvider(),
+    )
 
 
 @pytest.fixture()
@@ -34,12 +29,9 @@ def bot():
 
 
 @pytest.fixture()
-def storage():
-    """Storage fixture."""
-    return MemoryStorage()
-
-
-@pytest.fixture()
-def dp(storage):
+def dp(container):
     """Dispatcher fixture."""
-    return get_dispatcher(storage=storage)
+    dp = Dispatcher()
+    setup_dishka(container=container, router=dp)
+    setup_dispatcher(dp)
+    return dp

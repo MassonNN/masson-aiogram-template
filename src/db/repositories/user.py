@@ -55,7 +55,5 @@ class UserRepo:
     async def update_user_name(self, user_id: int, user_name: str) -> None:
         """Update username for user by given Telegram user id."""
         await self.session.execute(
-            update(User)
-            .values(user_name=user_name)
-            .where(User.user_id == user_id)
+            update(User).values(user_name=user_name).where(User.user_id == user_id)
         )

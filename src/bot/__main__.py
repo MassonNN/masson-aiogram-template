@@ -9,10 +9,11 @@ from aiogram.fsm.storage.base import BaseStorage
 from dishka import make_async_container
 from dishka.integrations.aiogram import setup_dishka
 
-from .di import InfrastructureProvider, FSMStorageProvider, ConfigurationProvider
 from ..bot.dispatcher import setup_dispatcher
 from ..configuration import Configuration
 from ..db.di import DatabaseProvider
+from .di import (ConfigurationProvider, FSMStorageProvider,
+                 InfrastructureProvider)
 
 
 async def start_bot():
@@ -21,7 +22,7 @@ async def start_bot():
         DatabaseProvider(),
         InfrastructureProvider(),
         FSMStorageProvider(),
-        ConfigurationProvider()
+        ConfigurationProvider(),
     )
     conf = await container.get(Configuration)
     storage = await container.get(BaseStorage)
@@ -30,9 +31,8 @@ async def start_bot():
     setup_dispatcher(dp)
 
     bot = Bot(
-        token=conf.bot.token, default=DefaultBotProperties(
-            parse_mode=ParseMode.HTML
-        )
+        token=conf.bot.token,
+        default=DefaultBotProperties(parse_mode=ParseMode.HTML),
     )
     logging.basicConfig(level=conf.logging_level)
 
@@ -42,5 +42,5 @@ async def start_bot():
     )
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     asyncio.run(start_bot())

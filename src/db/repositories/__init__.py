@@ -2,4 +2,4 @@
 from .chat import ChatRepo
 from .user import UserRepo
 
-__all__ = ('ChatRepo', 'UserRepo')
+__all__ = ("ChatRepo", "UserRepo")

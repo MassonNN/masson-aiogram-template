@@ -1,18 +1,18 @@
 import asyncio
 import logging
-from typing import Callable, Awaitable
+from collections.abc import Awaitable, Callable
 
-from aiogram.exceptions import TelegramBadRequest, TelegramNetworkError, TelegramMigrateToChat, TelegramRetryAfter, \
-    TelegramForbiddenError
+from aiogram.exceptions import (TelegramBadRequest, TelegramForbiddenError,
+                                TelegramMigrateToChat, TelegramNetworkError,
+                                TelegramRetryAfter)
 
 
 async def telegram_wrapper(
     func: Callable | Awaitable, handle: bool = False, *args, **kwargs
 ):
-    """
-    This function wraps telegram method to provide regular exceptions handling
+    """This function wraps telegram method to provide regular exceptions handling
     :param func: Telegram method
-    :param handle: If true returns exception object for handling in business logic
+    :param handle: If true returns exception object for handling in business logic.
     """
     try:
         return await func(*args, **kwargs)

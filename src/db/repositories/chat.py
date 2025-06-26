@@ -39,7 +39,5 @@ class ChatRepo:
 
     async def update_chat_title(self, chat_id: int, new_title: str) -> None:
         await self.session.execute(
-            update(Chat)
-            .values(title=new_title)
-            .where(Chat.chat_id == chat_id)
+            update(Chat).values(title=new_title).where(Chat.chat_id == chat_id)
         )

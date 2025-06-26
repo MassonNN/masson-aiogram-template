@@ -1,10 +1,10 @@
-from typing import AsyncIterable
+from collections.abc import AsyncIterable
 
-from dishka import Provider, provide, Scope
+from dishka import Provider, Scope, provide
 from sqlalchemy.ext.asyncio import AsyncEngine, AsyncSession
 
 from src.configuration import Configuration
-from src.db.database import create_async_engine, Database
+from src.db.database import Database, create_async_engine
 
 
 class DatabaseProvider(Provider):
@@ -20,4 +20,3 @@ class DatabaseProvider(Provider):
     @provide(scope=Scope.REQUEST)
     async def get_database(self, session: AsyncSession) -> AsyncIterable[Database]:
         yield Database(session=session)
-

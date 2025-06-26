@@ -7,10 +7,10 @@ from aiogram.types import CallbackQuery, Chat, Message, Update, User
 TEST_USER = User(
     id=123,
     is_bot=False,
-    first_name='Test',
-    last_name='Bot',
-    username='testbot',
-    language_code='ru-RU',
+    first_name="Test",
+    last_name="Bot",
+    username="testbot",
+    language_code="ru-RU",
     is_premium=True,
     added_to_attachment_menu=None,
     can_join_groups=None,
@@ -20,7 +20,7 @@ TEST_USER = User(
 
 TEST_CHAT = Chat(
     id=12,
-    type='private',
+    type="private",
     title=None,
     username=TEST_USER.username,
     first_name=TEST_USER.first_name,
@@ -61,8 +61,8 @@ def get_message(text: str, chat=TEST_CHAT, from_user=TEST_USER, **kwargs):
 
 def get_chat(
     chat_id: int = None,
-    chat_type: str = 'private',
-    title: str = 'TEST_TITLE',
+    chat_type: str = "private",
+    title: str = "TEST_TITLE",
     username: str = TEST_CHAT.username,
     **kwargs
 ) -> Chat:
@@ -83,22 +83,17 @@ def get_callback_query(
 ):
     """Get callback query update for tests."""
     return CallbackQuery(
-        id='test',
+        id="test",
         from_user=from_user,
-        chat_instance='test',
+        chat_instance="test",
         message=message or TEST_MESSAGE,
         data=data,
         **kwargs
     )
 
 
-def get_update(
-    message: Message = None, callback_query: CallbackQuery = None, **kwargs
-):
+def get_update(message: Message = None, callback_query: CallbackQuery = None, **kwargs):
     """Get mocked update for tests."""
     return Update(
-        update_id=187,
-        message=message,
-        callback_query=callback_query or None,
-        **kwargs
+        update_id=187, message=message, callback_query=callback_query or None, **kwargs
     )
