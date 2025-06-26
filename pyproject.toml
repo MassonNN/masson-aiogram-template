@@ -6,16 +6,16 @@ authors = ["MassonNn <ilyalyapin@duck.com>"]
 license = "MIT License"
 readme = "README.md"
 packages = []
+package-mode = false
 
 [tool.poetry.dependencies]
-python = "^3.10"
-aiogram = "^3.0b6"
-sqlalchemy = "^2.0.17"
-asyncpg = "^0.28.0"
-alembic = "^1.9.2"
-redis = "^4.4.2"
-jinja2 = "^3.1.2"
-greenlet = "^2.0.2"
+python = "^3.13"
+aiogram = "^3.20.0.post0"
+sqlalchemy = "^2.0.41"
+asyncpg = "^0.30.0"
+greenlet = "^3.2.3"
+redis = "^6.2.0"
+dishka = "^1.6.0"
 
 [tool.poetry.group.dev]
 optional=true

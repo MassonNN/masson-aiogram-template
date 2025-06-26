@@ -2,38 +2,39 @@
 import asyncio
 import logging
 
-from aiogram import Bot
-from redis.asyncio.client import Redis
+from aiogram import Bot, Dispatcher
+from aiogram.fsm.storage.base import BaseStorage
+from dishka import make_async_container
+from dishka.integrations.aiogram import setup_dishka
 
-from src.bot.dispatcher import get_dispatcher, get_redis_storage
-from src.bot.structures.data_structure import TransferData
-from src.configuration import conf
-from src.db.database import create_async_engine
+from .di import InfrastructureProvider, FSMStorageProvider, ConfigurationProvider
+from ..bot.dispatcher import setup_dispatcher
+from ..configuration import Configuration
+from ..db.di import DatabaseProvider
 
 
 async def start_bot():
     """This function will start bot with polling mode."""
-    bot = Bot(token=conf.bot.token)
-    storage = get_redis_storage(
-        redis=Redis(
-            db=conf.redis.db,
-            host=conf.redis.host,
-            password=conf.redis.passwd,
-            username=conf.redis.username,
-            port=conf.redis.port,
-        )
+    container = make_async_container(
+        DatabaseProvider(),
+        InfrastructureProvider(),
+        FSMStorageProvider(),
+        ConfigurationProvider()
     )
-    dp = get_dispatcher(storage=storage)
+    conf = await container.get(Configuration)
+    storage = await container.get(BaseStorage)
+    dp = Dispatcher(storage=storage)
+    setup_dishka(container=container, router=dp)
+    setup_dispatcher(dp)
+
+    bot = Bot(token=conf.bot.token)
+    logging.basicConfig(level=conf.logging_level)
 
     await dp.start_polling(
         bot,
         allowed_updates=dp.resolve_used_update_types(),
-        **TransferData(
-            engine=create_async_engine(url=conf.db.build_connection_str())
-        )
     )
 
 
 if __name__ == '__main__':
-    logging.basicConfig(level=conf.logging_level)
     asyncio.run(start_bot())

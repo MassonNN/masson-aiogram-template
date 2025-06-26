@@ -32,12 +32,3 @@ class User(Base):
         sa.Boolean, unique=False, nullable=False
     )
     """ Telegram user premium status """
-    role: Mapped[Role] = mapped_column(sa.Enum(Role), default=Role.USER)
-    """ User's role """
-    user_chat_fk: Mapped[int] = mapped_column(
-        sa.ForeignKey('chat.id'), unique=False, nullable=False
-    )
-    user_chat: Mapped[Chat] = orm.relationship(
-        'Chat', uselist=False, lazy='joined'
-    )
-    """ Telegram chat with user """

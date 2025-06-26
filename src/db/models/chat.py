@@ -22,9 +22,3 @@ class Chat(Base):
         sa.Text, unique=False, nullable=True
     )
     """ Telegram chat full name """
-    chat_user: Mapped[int] = mapped_column(
-        sa.ForeignKey('user.id', ondelete='CASCADE'),
-        unique=False,
-        nullable=True,
-    )
-    """ Foreign key to user (it can has effect only in private chats) """

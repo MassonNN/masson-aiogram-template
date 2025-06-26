@@ -3,6 +3,7 @@ import logging
 from dataclasses import dataclass
 from os import getenv
 
+from aiogram.fsm.strategy import FSMStrategy
 from sqlalchemy.engine import URL
 
 
@@ -62,6 +63,3 @@ class Configuration:
     db = DatabaseConfig()
     redis = RedisConfig()
     bot = BotConfig()
-
-
-conf = Configuration()

@@ -1,20 +1,17 @@
 """User repository file."""
 
-from sqlalchemy import select
+from sqlalchemy import select, update
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from src.bot.structures.role import Role
-
 from ..models import Base, User
-from .abstract import Repository
 
 
-class UserRepo(Repository[User]):
+class UserRepo:
     """User repository for CRUD and other SQL queries."""
 
     def __init__(self, session: AsyncSession):
         """Initialize user repository as for all users or only for one user."""
-        super().__init__(type_model=User, session=session)
+        self.session = session
 
     async def new(
         self,
@@ -24,7 +21,6 @@ class UserRepo(Repository[User]):
         second_name: str | None = None,
         language_code: str | None = None,
         is_premium: bool | None = False,
-        role: Role | None = Role.USER,
         user_chat: type[Base] = None,
     ) -> None:
         """Insert a new user into the database.
@@ -46,13 +42,20 @@ class UserRepo(Repository[User]):
                 second_name=second_name,
                 language_code=language_code,
                 is_premium=is_premium,
-                role=role,
                 user_chat=user_chat,
             )
         )
 
-    async def get_role(self, user_id: int) -> Role:
-        """Get user role by id."""
+    async def get_by_user_id(self, user_id: int) -> User:
+        """Get exactly one user by given Telegram user id."""
         return await self.session.scalar(
-            select(User.role).where(User.user_id == user_id).limit(1)
+            select(User).where(User.user_id == user_id).limit(1)
+        )
+
+    async def update_user_name(self, user_id: int, user_name: str) -> None:
+        """Update username for user by given Telegram user id."""
+        await self.session.execute(
+            update(User)
+            .values(user_name=user_name)
+            .where(User.user_id == user_id)
         )

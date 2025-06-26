@@ -1,17 +1,17 @@
 """Chat repository file."""
+
+from sqlalchemy import select, update
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from ..models import Chat
-from ..models import User as _User
-from .abstract import Repository
 
 
-class ChatRepo(Repository[Chat]):
+class ChatRepo:
     """Chat repository for CRUD and other SQL queries."""
 
     def __init__(self, session: AsyncSession):
         """Initialize chat repository as for all chats or only for one chat."""
-        super().__init__(type_model=Chat, session=session)
+        self.session = session
 
     async def new(
         self,
@@ -19,16 +19,27 @@ class ChatRepo(Repository[Chat]):
         chat_type: str,
         title: str,
         chat_name: str,
-        chat_user: _User,
-    ) -> None:
-        """Insert a new user into the database."""
+    ) -> Chat:
+        """Insert a new chat into the database."""
         new_chat = await self.session.merge(
             Chat(
                 chat_id=chat_id,
                 chat_type=chat_type,
                 title=title,
                 chat_name=chat_name,
-                chat_user=chat_user,
             )
         )
         return new_chat
+
+    async def get_by_chat_id(self, chat_id: int) -> Chat:
+        """Get exactly one chat by given Telegram chat id."""
+        return await self.session.scalar(
+            select(Chat).where(Chat.chat_id == chat_id).limit(1)
+        )
+
+    async def update_chat_title(self, chat_id: int, new_title: str) -> None:
+        await self.session.execute(
+            update(Chat)
+            .values(title=new_title)
+            .where(Chat.chat_id == chat_id)
+        )

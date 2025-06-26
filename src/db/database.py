@@ -4,18 +4,17 @@ from sqlalchemy.engine.url import URL
 from sqlalchemy.ext.asyncio import AsyncEngine, AsyncSession
 from sqlalchemy.ext.asyncio import create_async_engine as _create_async_engine
 
-from src.configuration import conf
-
 from .repositories import ChatRepo, UserRepo
 
 
-def create_async_engine(url: URL | str) -> AsyncEngine:
+def create_async_engine(url: URL | str, debug=False) -> AsyncEngine:
     """Create async engine with given URL.
 
     :param url: URL to connect
+    :param debug: Enable debug
     :return: AsyncEngine
     """
-    return _create_async_engine(url=url, echo=conf.debug, pool_pre_ping=True)
+    return _create_async_engine(url=url, echo=debug, pool_pre_ping=True)
 
 
 class Database:
