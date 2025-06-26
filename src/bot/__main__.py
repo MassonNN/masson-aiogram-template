@@ -3,6 +3,8 @@ import asyncio
 import logging
 
 from aiogram import Bot, Dispatcher
+from aiogram.client.default import DefaultBotProperties
+from aiogram.enums import ParseMode
 from aiogram.fsm.storage.base import BaseStorage
 from dishka import make_async_container
 from dishka.integrations.aiogram import setup_dishka
@@ -27,7 +29,11 @@ async def start_bot():
     setup_dishka(container=container, router=dp)
     setup_dispatcher(dp)
 
-    bot = Bot(token=conf.bot.token)
+    bot = Bot(
+        token=conf.bot.token, default=DefaultBotProperties(
+            parse_mode=ParseMode.HTML
+        )
+    )
     logging.basicConfig(level=conf.logging_level)
 
     await dp.start_polling(
