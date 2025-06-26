@@ -1,14 +1,14 @@
-version: '3.7'
 services:
   redis:
-    build:
-      context: buildfiles
-      dockerfile: redis.dockerfile
+    image: redis:7.2.4-alpine
     env_file:
       - .env
     restart: on-failure
     ports:
       - "6378:6378"
+    volumes:
+      - redis:/data
+      - ./buildfiles/redis.conf:/usr/local/etc/redis/redis.conf:ro
   db:
     image: postgres:15-alpine
     env_file:
@@ -32,3 +32,4 @@ services:
 
 volumes:
   pgdata:
+  redis:
