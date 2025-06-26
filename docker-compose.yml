@@ -5,7 +5,8 @@ services:
       - .env
     restart: on-failure
     ports:
-      - "6378:6378"
+      - "6379:6379"
+    command: redis-server /usr/local/etc/redis/redis.conf
     volumes:
       - redis:/data
       - ./buildfiles/redis.conf:/usr/local/etc/redis/redis.conf:ro

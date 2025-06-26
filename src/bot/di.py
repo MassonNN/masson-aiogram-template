@@ -13,15 +13,15 @@ from src.configuration import Configuration
 class InfrastructureProvider(Provider):
     @provide(scope=Scope.APP)
     async def get_redis(self, conf: Configuration) -> AsyncIterable[Redis]:
-        with Redis(
+        redis = Redis(
             db=conf.redis.db,
             host=conf.redis.host,
             password=conf.redis.passwd,
             username=conf.redis.username,
             port=conf.redis.port,
             decode_responses=True
-        ) as redis:
-            yield redis
+        )
+        yield redis
 
 
 class FSMStorageProvider(Provider):
